@@ -1,1 +1,3 @@
-# My-first-project
+# 
+Programos veikimas:
+1. 
