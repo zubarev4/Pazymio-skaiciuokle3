@@ -89,7 +89,7 @@ int main() {
     int numStudents = 0;
     Student* students = nullptr;
     string firstName, lastName;
-    string input;
+    string input, finalExamGrade;
 
     while (true) {
         cout << "Įveskite studento vardą ir pavardę (įveskite 'baigti vesti', kai norėsite baigti įvestį) :\n" << "Įveskite 'noriu iseiti', jei norite išeiti \n";
@@ -113,7 +113,6 @@ int main() {
         }
 
     Student temp = {firstName, lastName};
-    while (true) {
     cout << "Ar norite vesti namų darbų pažymius ranka ar generuoti? (r/g): ";
     cin >> input;
 
@@ -134,18 +133,19 @@ int main() {
             }
         }
 
+           while (true) {
         cout << "Įveskite egzamino pažymį " << temp.firstName << ' ' << temp.lastName << ":\n";
-        string finalExamGrade;
         cin >> finalExamGrade;
-        if (isValidGrade(finalExamGrade)) {
-            temp.finalExamGrade = stoi(finalExamGrade);
-            numStudents++;
-            break; 
-        } else {
-            cout << "Neteisinga įvestis. Egzamino pažymys gali būti tik skaičius nuo 1 iki 10. Bandykite dar: ";
-            cin.clear(); 
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-        }
+            if (isValidGrade(finalExamGrade)) {
+                temp.finalExamGrade = stoi(finalExamGrade);
+                numStudents++;
+                break;
+            } else {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Neteisinga įvestis. Egzamino pažymys gali būti tik skaičius nuo 1 iki 10." << endl;
+            }
+     }
     } else if (input == "g") {
         int number;
         cout << "Kiek namų darbų pažymių norite generuoti? ";
@@ -157,7 +157,7 @@ int main() {
         cout << "Neteisinga įvestis. Įveskite 'r' arba 'g'.\n";
         continue;
     }
-}
+
         // Dynamic memory reallocation for students array
         Student* tempArray = new Student[numStudents];
         for (int i = 0; i < numStudents - 1; ++i) {
