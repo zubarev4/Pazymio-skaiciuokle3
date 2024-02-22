@@ -1,13 +1,15 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
 #include <string>
 #include <algorithm>
 #include <iomanip>
-#include <stdexcept>
-#include <cctype>
-#include <vector>
-#include <limits> 
-#include <fstream>
+#include <ctime>
+#include <cstdlib>
 #include <sstream>
+#include <limits>
+#include <numeric>
+#include <chrono>
 
 using namespace std;
 
@@ -16,6 +18,8 @@ struct Student {
     string lastName;
     vector<int> grades;
     int finalExamGrade;
+    double median, average;
+    double fin_median, fin_average;
 };
 
 bool isValidName(const string& name) {
@@ -95,14 +99,161 @@ void generateNames(Student& student) {
     cout << "Sugeneruotas vardas ir pavardė: " << student.firstName << " " << student.lastName << endl;
 }
 
+void readFromFile(const string& filename, vector<Student>& students) {
+ auto start = chrono::high_resolution_clock::now();
+ ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "Neišejo nuskaityti: " << filename << endl;
+        return;
+    }
+
+    string header, line, firstName, lastName;
+    getline(file, header); 
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+        ss >> firstName >> lastName;
+        Student student;
+        student.firstName = firstName;
+        student.lastName = lastName;
+
+        int grade;
+        while (ss >> grade) {
+            student.grades.push_back(grade);
+        }
+        if(!student.grades.empty())
+        {
+            student.finalExamGrade = student.grades.back();
+            student.grades.pop_back();
+        }
+        student.fin_average = calculateAverage(student) * 0.4 + student.finalExamGrade * 0.6;
+        student.fin_median = calculateMedian(student) * 0.4 + student.finalExamGrade * 0.6;
+        
+        students.push_back(student);
+    }
+
+    file.close();
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> time = end - start;
+    cout << "Skaitymo laikas: " << time.count() << endl;
+}
+
+
+bool sortByAverage(const Student& studentA, const Student& studentB) {
+    return studentA.fin_average > studentB.fin_average;
+}
+
+bool sortByMedian(const Student& studentA, const Student& studentB) {
+    return studentA.fin_median > studentB.fin_median;
+}
+
+void sortStudents(vector<Student>& students, char option) {
+    switch (option) {
+        case '1':
+            break;
+        case '2':
+            sort(students.begin(), students.end(), sortByAverage);
+            break;
+        case '3':
+            sort(students.begin(), students.end(), sortByMedian);
+            break;
+        default:
+            cout << "Neteisingas pasirinkimas" << endl;
+    }
+}
+
+void printResults(const vector<Student>& students, char sortingOption, const string& outputFilename = "") {
+    if (outputFilename.empty()) {
+        cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
+        cout << "--------------------------------------------------------------------------------------------\n";
+        for (int i = 0; i < students.size(); i++) {
+            cout << fixed << setw(10) << students[i].firstName << setw(20) << students[i].lastName;
+            cout << fixed << setw(20) << setprecision(2) << students[i].fin_average;
+            cout << fixed << setw(25) << setprecision(2) << students[i].fin_median << '\n';
+        }
+    } else {
+        ofstream outputFile(outputFilename);
+        if (!outputFile.is_open()) {
+            cout << "Neišejo atidaryti: " << outputFilename << endl;
+            return;
+        }
+        outputFile << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
+        outputFile << "--------------------------------------------------------------------------------------------\n";
+        for (int i = 0; i < students.size(); i++) {
+            outputFile << fixed << setw(10) << students[i].firstName << setw(20) << students[i].lastName;
+            outputFile << fixed << setw(20) << setprecision(2) << students[i].fin_average;
+            outputFile << fixed << setw(25) << setprecision(2) << students[i].fin_median << '\n';
+        }
+        outputFile.close();
+        cout << "Rezultatus rasite: " << outputFilename << endl;
+    }
+}
 
 int main() {
     int numStudents = 0;
     vector<Student> students;
     string firstName, lastName;
-    string input, grade, finalExamGrade, choice;
+    string input, grade, finalExamGrade, choice, option, line, filename;
     Student temp; 
+        
+    cout << "1 - Jei norite nuskaityti iš failo \n" << "2 - Jei norite vesti duomenis \n";
+    cin >> option; 
+        switch (option [0]){
+    case '1' :
 
+    cout << "Iš kurio failo norite nuskaityti?" << endl;
+    cout << "1 - studentai10000.txt" << endl;
+    cout << "2 - studentai100000.txt" << endl;
+    cout << "3 - studentai1000000.txt" << endl;
+    cout << "4 - kursiokai.txt" << endl;
+    char fileOption;
+    cin >> fileOption;
+
+    switch (fileOption) {
+        case '1':
+            filename = "studentai10000.txt";
+            break;
+        case '2':
+            filename = "studentai100000.txt";
+            break;
+        case '3':
+            filename = "studentai1000000.txt";
+            break;
+        case '4':
+            filename = "kursiokai.txt";
+            break;
+        default:
+            cout << "Neteisinga įvestis" << endl;
+            return 1;
+    }
+
+    readFromFile(filename, students);
+
+    cout << "Kaip norėtumėte surikiuoti rezultatus?" << endl;
+    cout << "1 - Pagal vardą ir pavardę" << endl;
+    cout << "2 - Pagal vidurkį (nuo didžiausio)" << endl;
+    cout << "3 - Pagal medianą (nuo didžiausios)" << endl;
+    char sortingOption;
+    cin >> sortingOption;
+
+    sortStudents(students, sortingOption);
+
+    cout << "Kaip norėtumėte išvesti rezultatus?" << endl;
+    cout << "1 - Į ekraną" << endl;
+    cout << "2 - Į failą 'results.txt'" << endl;
+    cin >> fileOption;
+
+    if (fileOption == '2') {
+        printResults(students, sortingOption, "results.txt");
+    } else if (fileOption == '1'){
+        printResults(students, sortingOption, "");
+    }
+    else {
+        cout << "Neteisinga įvestis" << endl;
+    }
+            break;
+
+        case '2' :
     while (true) {
         cout << "Ar norite generuoti studento vardą ir pavardę ar įvesti ranka? (g/r): \n" << "Įveskite 'baigti', kai norėsite baigti įvestį \n"  << "Įveskite 'iseiti', jei norite išeiti \n";
         cin >> choice;
@@ -156,7 +307,7 @@ int main() {
                 }
          }
         
-                while (true) {
+            while (true) {
             cout << "Įveskite egzamino pažymį " << temp.firstName << ' ' << temp.lastName << ":\n";
             cin >> finalExamGrade;
             if (isValidGrade(finalExamGrade)) {
@@ -171,11 +322,22 @@ int main() {
      }
  }      else if (input == "g") {
             int number;
-            cout << "Kiek namų darbų pažymių norite generuoti? ";
-            cin >> number;
-            randomGradeGenerator(number, temp); 
-            numStudents++;
-                    } else {
+            while (true) {
+                cout << "Kiek namų darbų pažymių norite generuoti? ";
+                if (cin >> number) {
+                    randomGradeGenerator(number, temp);
+                    numStudents++;
+                    break; 
+                } else {
+                    cout << "Neteisinga įvestis. Įveskite skaičių.\n";
+                    cin.clear(); 
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                }
+            }
+ }
+                     else {
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
                         cout << "Neteisinga įvestis. Įveskite 'r' arba 'g'.\n";
                         continue;
                     }
@@ -231,40 +393,21 @@ int main() {
         }
     }
 
-    int calculation;
-    while (true) {
-    cout << "Įveskite 1, kad paskaičiuoti medianą arba 2 vidurkį: ";
-    if (cin >> calculation) {
-        switch(calculation){
-            case 1: {
-                cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Med.)\n";
-                cout << "----------------------------------------------------\n";
+                cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
+                cout <<"--------------------------------------------------------------------------------------------\n";
                 for (const auto& student : students) {
-                    cout << fixed << setw(10) << student.firstName << fixed << setw(20) << student.lastName;
-                    cout << fixed << setw(20) << setprecision(1) << calculateMedian(student) << '\n';
+                    cout << fixed << setw(10) << student.firstName << setw(20) << student.lastName;
+                    cout << fixed << setw(20) << setprecision(2)<< calculateAverage(student)*0.4+student.finalExamGrade*0.6;
+                    cout << fixed << setw(25) << setprecision(2)<< calculateMedian(student)*0.4+student.finalExamGrade*0.6 << '\n';
                 }
-                break;
-            }
-            case 2: {
-                cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Avg.)\n";
-                cout << "----------------------------------------------------\n";
-                for (const auto& student : students) {
-                    cout << fixed << setw(10) << student.firstName << fixed << setw(20) << student.lastName;
-                    cout << fixed << setw(20) << setprecision(1) << calculateAverage(student) * 0.4 + student.finalExamGrade * 0.6 << '\n';
-                }
-                break;
-            }
-            default:
-                cout << "Neteisinga įvestis. Įveskite 1 arba 2.\n";
-                break; 
+
+            break; 
+
+        default:
+            cout << "Neteisinga įvestis. Pasirinkite 1 arba 2.\n";
+            break;
         }
-        break; 
-    } else {
-        cout << "Neteisinga įvestis. Įveskite 1 arba 2.\n";
-        cin.clear(); // Clear the error state
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
-    }
-}
+        
 
     return 0;
 }
