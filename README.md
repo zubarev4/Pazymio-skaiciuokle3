@@ -1,6 +1,6 @@
 # Programos veikimas: 
 1. *Patobulinimas*  Paleidus programą, vartotojo yra paklausiama, ar jis nori įvesti duomenis ar nuskaityti iš failo.
-2. *Patobulinimas* Jei pasirenkama, kad nuskaityti iš failo tai paklausiama iš kurio iš 3-jų failų norima nuskaityti.
+2. *Patobulinimas* Jei pasirenkama, kad nuskaityti iš failo tai paklausiama iš kurio iš 4-ių failų norima nuskaityti.
 3. *Patobulinimas* Apskaičiavus rezultatus vartotojo paklausiama kaip jis norėtų rūšiuoti duomenis: vardas, pavardė, galutinis pagal vidurkį arba galutinis pagal medianą. 
 4. Jei pasirenkama, kad įvesti duomenis tai paklausiama ar nori įvesti studento vardą bei pavardę ranka ar generuoti.
 5. Paklausiama kokiu būdu norima įvesti pažymius (įrašyti ranka arba generuoti atsitiktinai).
