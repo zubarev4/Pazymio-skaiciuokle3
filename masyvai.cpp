@@ -118,7 +118,7 @@ int main() {
 
     if (input == "r") {
         cout << "Įveskite namų darbų pažymius " << temp.firstName << ' ' << temp.lastName << " (įveskite '-1', kad baigti):\n";
-        temp.grades = new int[100];
+        temp.grades = new int[1]; 
         temp.numGrades = 0;
         string grade;
         while (cin >> grade) {
@@ -126,6 +126,14 @@ int main() {
                 break;
             }
             if (isValidGrade(grade)) {
+                if (temp.numGrades % 100 == 0) {
+                int* newGrades = new int[temp.numGrades + 100]; 
+                for (int i = 0; i < temp.numGrades; ++i) {
+                    newGrades[i] = temp.grades[i];
+                }
+                delete[] temp.grades;
+                temp.grades = newGrades; 
+            }
                 temp.grades[temp.numGrades] = stoi(grade);
                 temp.numGrades++;
             } else {
