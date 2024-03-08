@@ -173,4 +173,5 @@ void printResults(const vector<Student>& students, char sortingOption, const str
         outputFile.close();
         cout << "Rezultatus rasite: " << outputFilename << endl;
     }
+
 }

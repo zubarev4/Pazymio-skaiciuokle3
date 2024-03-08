@@ -1,4 +1,6 @@
 #include "vektoriai.h"
+#include "failu-generavimas.h"
+void generatingFinal();
 
 int main() {
     int numStudents = 0;
@@ -6,7 +8,9 @@ int main() {
     string firstName, lastName;
     string input, grade, finalExamGrade, choice, option, line, filename;
     Student temp; 
-        
+    
+    generatingFinal();
+
     cout << "1 - Jei norite nuskaityti iš failo \n" << "2 - Jei norite vesti duomenis \n";
     cin >> option; 
         switch (option [0]){
@@ -156,7 +160,6 @@ int main() {
     randomGradeGenerator(number, temp); 
     numStudents++;
 } 
-
                      else {
                         cin.clear();
                         cin.ignore(numeric_limits<streamsize>::max(), '\n');
