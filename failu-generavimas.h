@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <vector>
 #include <chrono>
-#include <thread>
 #include <string>
 #include <ctime>
 #include <cstdlib>
