@@ -11,22 +11,34 @@
 
 1 tyrimas (darbas su failais): 
 - Failų kūrimas:
+
 ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/99103d43-8344-4a5c-818c-d456aca2515d)
 
 2 tyrimas, duomenų apdorijimas:
 - Duomenų nuskaitymą iš failo:
+
   ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/6a8b70cb-9b61-47a4-a30c-8cce48265672)
+
   ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/4092ac96-0e42-4b49-bb00-ca5650028c6b)
+
   ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/67181ef4-ba00-4da4-b170-c73227d2634b)
+
   ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/09cfa89c-e26d-4705-bb32-98ca408806d1)
+
   ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/08cd3ac5-10f8-4414-a6b3-cf411ae31c99)
  
 - Studentų rūšiavimą į dvi grupes/kategorijas; Surūšiuotų studentų išvedimą į du naujus failus:
+
  ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/68fb00b9-3612-4b5b-a1f3-42e86afed0d5)
- ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/d006ccc6-5d54-47b6-94bc-0acfba78f92d)
- ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/b60f73cf-b948-4833-8197-3af2d6f05e87)
+
+![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/d006ccc6-5d54-47b6-94bc-0acfba78f92d)
+
+![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/b60f73cf-b948-4833-8197-3af2d6f05e87)
+
  ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/80669479-2531-45bf-824b-6c595e320eaf)
+
  ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/d86b6ff6-74ba-472f-a52c-8f679c796946)
 
 - Visos programos veikimo laikas:
-  ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/f95d59c6-0c50-4b1b-b287-5c09090f321f)
+
+   ![image](https://github.com/zubarev4/Pazymio-skaiciuokle/assets/147638474/f95d59c6-0c50-4b1b-b287-5c09090f321f)
