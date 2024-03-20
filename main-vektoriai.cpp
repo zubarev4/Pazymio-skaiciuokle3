@@ -11,7 +11,7 @@ int main() {
     
     generatingFinal();
 
-    cout << "1 - Jei norite nuskaityti iš failo \n" << "2 - Jei norite vesti duomenis \n";
+    cout << "1 - Jei norite nuskaityti iš failo \n" << "2 - Jei norite vesti duomenis \n" << "3 - Jei norite išeiti \n";;
     cin >> option; 
         switch (option [0]){
     case '1' :
@@ -252,6 +252,8 @@ int main() {
                 }
             break; 
 
+        case '3' :
+        return 0;
         default:
             cout << "Neteisinga įvestis. Pasirinkite 1 arba 2.\n";
             break;

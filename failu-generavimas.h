@@ -5,16 +5,18 @@
 #include <fstream>
 #include <iomanip>
 #include <vector>
+#include <chrono>
+#include <thread>
 #include <string>
 #include <ctime>
 #include <cstdlib>
-#include "vektoriai.h" // Include vektoriai.h for the Student struct
+#include "vektoriai.h"
 
 using namespace std;
 
 void writeCategorizedStudents(const vector<Student>& students, const string& filename);
-void generateGrades(Student& student, int numGrades);
 void generateFiles();
 void sortAndWriteToFile(const string& inputFilename);
+void generatingFinal();
 
 #endif

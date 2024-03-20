@@ -118,7 +118,9 @@ void readFromFile(const string& filename, vector<Student>& students) {
     file.close();
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> time = end - start;
-    cout << "Skaitymo laikas: " << time.count() << endl;
+    cout << endl;
+    cout << "Skaitymo laikas " << filename << " " << time.count() << " sekundės" << endl;
+    cout << endl;
 }
 
 
