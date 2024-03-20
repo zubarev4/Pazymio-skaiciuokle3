@@ -112,13 +112,12 @@ void generatingFinal() {
     if (choice == "1") {
         auto start = chrono::high_resolution_clock::now(); 
         generateFiles();
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         sortAndWriteToFile("1000.txt");
         sortAndWriteToFile("10000.txt");
         sortAndWriteToFile("100000.txt");
         sortAndWriteToFile("1000000.txt");
         sortAndWriteToFile("10000000.txt");
-        auto stop = chrono::high_resolution_clock::now(); // Stop measuring time
+        auto stop = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
         cout << endl;
         cout << "Generuoti failus veiksmo veikimo laikas : " << duration.count() << " sekundės " << endl;
