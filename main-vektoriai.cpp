@@ -51,6 +51,7 @@ int main() {
     char sortingOption;
     cin >> sortingOption;
 
+   
     sortStudents(students, sortingOption);
 
     cout << "Kaip norėtumėte išvesti rezultatus?" << endl;

@@ -134,21 +134,42 @@ bool sortByMedian(const Student& studentA, const Student& studentB) {
 }
 
 void sortStudents(vector<Student>& students, char option) {
+    auto start = chrono::high_resolution_clock::now(); 
+    auto stop = chrono::high_resolution_clock::now(); 
+    chrono::duration<double> time;
+
     switch (option) {
-        case '1':
+        case '1': {
+            start = chrono::high_resolution_clock::now(); 
+            // Sorting logic for case 1
+            stop = chrono::high_resolution_clock::now(); 
+            time = stop - start;
+            cout << "Rūšiavimas užtruko " << time.count() << " sekundės " << endl;
             break;
-        case '2':
+        }
+        case '2': {
+            start = chrono::high_resolution_clock::now(); 
             sort(students.begin(), students.end(), sortByAverage);
+            stop = chrono::high_resolution_clock::now(); 
+            time = stop - start;
+            cout << "Rūšiavimas užtruko " << time.count() << " sekundės " << endl;
             break;
-        case '3':
+        }
+        case '3': {
+            start = chrono::high_resolution_clock::now(); 
             sort(students.begin(), students.end(), sortByMedian);
+            stop = chrono::high_resolution_clock::now(); 
+            time = stop - start;
+            cout << "Rūšiavimas užtruko " << time.count() << " sekundės " << endl;
             break;
-        default:
+        }
+        default: {
             cout << "Neteisinga įvestis. Turite įrašyti 1/2/3. " << endl;
             exit(EXIT_FAILURE);
-
+        }
     }
 }
+
 
 void printResults(const vector<Student>& students, char sortingOption, const string& outputFilename = "") {
     if (outputFilename.empty()) {
