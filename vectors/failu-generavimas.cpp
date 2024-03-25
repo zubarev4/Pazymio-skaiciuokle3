@@ -19,7 +19,6 @@ void writeCategorizedStudents(const vector<Student>& students, const string& fil
     outputFile.close();
     auto stop = chrono::high_resolution_clock::now(); 
     chrono::duration<double> time = stop - start;
-    //cout << "Surūšiotus studentus rasite: " << filename << endl;
     cout << "Studentų išvedimo į " << filename << " laikas: " << time.count() << " sekundės " << endl;
 }
 
@@ -76,29 +75,33 @@ void sortAndWriteToFile(const string& inputFilename) {
     vector<Student> students;
     readFromFile(inputFilename, students);
 
-    vector<Student> vargsiukai, kietiakai;
     auto start = chrono::high_resolution_clock::now();
-    auto stop = chrono::high_resolution_clock::now();
-    auto stop2 = chrono::high_resolution_clock::now();
 
+    for (auto& student : students) {
+        student.finalGrade = calculateAverage(student) * 0.4 + student.finalExamGrade * 0.6;
+    }
+
+    sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
+        return a.finalGrade > b.finalGrade;
+    });
+
+    auto stop1 = chrono::high_resolution_clock::now();
+    chrono::duration<double> time1 = stop1 - start;
+    cout << "Studentų rūšiavimo didėjimo tvarka " << inputFilename << " laikas: " << time1.count() << " sekundės " << endl;
+
+    vector<Student> vargsiukai, kietiakai;
     for (const auto& student : students) {
-        double finalGrade = calculateAverage(student) * 0.4 + student.finalExamGrade * 0.6;
-        if (finalGrade < 5.0) {
+        if (student.finalGrade < 5.0 ) {
             vargsiukai.push_back(student);
-            stop = chrono::high_resolution_clock::now();
         } else {
             kietiakai.push_back(student);
-            stop2 = chrono::high_resolution_clock::now();
         }
     }
-    
+
+    auto stop = chrono::high_resolution_clock::now();
     chrono::duration<double> time = stop - start;
-    cout << "Rūšiavimas į vargšiukus " << inputFilename << " laikas: " << time.count() << " sekundės " << endl;
-    chrono::duration<double> time2 = stop2 - start;
-    cout << "Rūšiavimas į kietekus " << inputFilename << " laikas: "<< time2.count() << " sekundės " << endl;
+    cout << "Studentų skirstymas " << inputFilename << " į kietekus ir vargšiukus laikas: " << time.count() << " sekundės " << endl;
     cout << endl;
-
-
     writeCategorizedStudents(vargsiukai, "vargsiukai_" + inputFilename);
     writeCategorizedStudents(kietiakai, "kietiakai_" + inputFilename);
 }
