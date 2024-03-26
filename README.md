@@ -105,6 +105,12 @@ Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) pa
 
 
 ### Instaliavimo instrukcija
-- Jeigu neturite CMake, tuomet reikia atsisiųsti iš https://cmake.org/download/ ir instaliuojant programą pasirinkti, kad nustatytų sistemos kintamuosius arba galite žiūrėti šitą video: https://www.youtube.com/watch?v=8_X5Iq9niDE.
-- Tuomet tam folderyje, raskite run.bat script'ą ir jums viska sutvarkys automatiškai.
-- v1.0.exe failą rasite Debug folderyje, kuris atsiras po CMake įvykdymo.
+- Jeigu naudojate „Visual Studio Code“, rekomenduojama įdiegti šiuos išplėtinius:
+"C/C++ Extension Pack", "C/C++ Runner", "Code Runner", "CMake", "CMake Tools".
+- Meniu juostos pasirinkite „Terminalas“ -> „Naujas terminalas“. Naujas terminalo langas turėtų atsirasti apačioje jūsų programos sąsajos.
+Naudodami cd komandą, pateikite klonuoto saugyklos kelią: cd <jūsų\direktorijos\kelias>
+Pavyzdžiui, cd<C:\Users\...>
+- Norėdami paleisti programą, turite ją sukompiliuoti naudodami „Makefile“ failą, kuris yra saugykloje. Programos (pvz., VSCode) terminale rašykite:
+make vektoriai
+make failu-generavimas
+make programa
