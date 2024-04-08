@@ -106,11 +106,11 @@ Bendro studentų konteinerio (vector, list ir deque) skaidymas (rūšiavimas) pa
 
 ### Instaliavimo instrukcija
 - Jeigu naudojate „Visual Studio Code“, rekomenduojama įdiegti šiuos išplėtinius:
-"C/C++ Extension Pack", "C/C++ Runner", "Code Runner", "CMake", "CMake Tools".
-- Meniu juostos pasirinkite „Terminalas“ -> „Naujas terminalas“. Naujas terminalo langas turėtų atsirasti apačioje jūsų programos sąsajos.
-Naudodami cd komandą, pateikite klonuoto saugyklos kelią: cd <jūsų\direktorijos\kelias>
-Pavyzdžiui, cd<C:\Users\...>
+"C/C++ Extension Pack", "C/C++ Runner", "Code Runner".
+- Taip pat parsisiuskite https://www.msys2.org/ ir nusistatykite bin folderį į PATH per environmental variables.
+- Meniu juostos pasirinkite "Terminal“ -> "Select Default Profile“. Šiame lange turėtumete rasti bash(MSYS2) C:\msys64\usr\bin\bash.exe.
+Naudodami cd komandą, pateikite klonuoto saugyklos kelią: cd jūsų/direktorijos/kelias/
+Pavyzdžiui, cd /c/ISI/1k/2s/Objektinis\ programavimas/v1.0
 - Norėdami paleisti programą, turite ją sukompiliuoti naudodami „Makefile“ failą, kuris yra saugykloje. Programos (pvz., VSCode) terminale rašykite:
-make vektoriai
-make failu-generavimas
-make programa
+make
+./run
