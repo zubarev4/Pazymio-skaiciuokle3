@@ -1,17 +1,18 @@
 CC = g++
-CFLAGS = -O3 -Wall -std=c++17
+CFLAGS = -Wall -std=c++17
 
-all: main-vektoriai.o vektoriai.o failu-generavimas.o
-	$(CC) $(CFLAGS) main-vektoriai.o vektoriai.o failu-generavimas.o -o run
+.PHONY: all clean
 
-main-vektoriai.o: main-vektoriai.cpp
-	$(CC) $(CFLAGS) -c main-vektoriai.cpp
-    
-vektoriai.o: vektoriai.cpp vektoriai.h
-	$(CC) $(CFLAGS) -c vektoriai.cpp
+all: vektoriai_O1 vektoriai_O2 vektoriai_O3
 
-failu-generavimas.o: failu-generavimas.cpp failu-generavimas.h
-	$(CC) $(CFLAGS) -c failu-generavimas.cpp
+vektoriai_O1: main-vektoriai.cpp vektoriai.cpp failu-generavimas.cpp
+	$(CC) $(CFLAGS) -O1 $^ -o $@
+
+vektoriai_O2: main-vektoriai.cpp vektoriai.cpp failu-generavimas.cpp
+	$(CC) $(CFLAGS) -O2 $^ -o $@
+
+vektoriai_O3: main-vektoriai.cpp vektoriai.cpp failu-generavimas.cpp
+	$(CC) $(CFLAGS) -O3 $^ -o $@
 
 clean:
-	rm -f *.o run.exe
+	rm -f vektoriai_O1 vektoriai_O2 vektoriai_O3
