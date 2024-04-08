@@ -13,17 +13,9 @@
 #include <limits>
 #include <numeric>
 #include <chrono>
+#include "student.h"
 
 using namespace std;
-
-struct Student {
-    string firstName;
-    string lastName;
-    vector<int> grades;
-    int finalExamGrade;
-    double median, average;
-    double fin_median, fin_average;
-};
 
 bool isValidName(const string& name);
 bool isValidGrade(const string& grade);

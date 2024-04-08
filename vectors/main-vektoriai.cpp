@@ -1,21 +1,20 @@
 #include "vektoriai.h"
 #include "failu-generavimas.h"
+#include "student.h"
 void generatingFinal();
 
 int main() {
     int numStudents = 0;
     vector<Student> students;
-    string firstName, lastName;
     string input, grade, finalExamGrade, choice, option, line, filename;
-    Student temp; 
     
     generatingFinal();
 
     cout << "1 - Jei norite nuskaityti iš failo \n" << "2 - Jei norite vesti duomenis \n" << "3 - Jei norite išeiti \n";;
     cin >> option; 
-        switch (option [0]){
-    case '1' :
 
+switch (option [0]){
+    case '1' :
     cout << "Iš kurio failo norite nuskaityti?" << endl;
     cout << "1 - studentai10000.txt" << endl;
     cout << "2 - studentai100000.txt" << endl;
@@ -70,11 +69,13 @@ int main() {
     }
             break;
 
-        case '2' :
+    case '2' :
         try{
-    while (true) {
-        cout << "Ar norite generuoti studento vardą ir pavardę ar įvesti ranka? (g/r): \n" << "Įveskite 'baigti', kai norėsite baigti įvestį \n"  << "Įveskite 'iseiti', jei norite išeiti \n";
-        cin >> choice;
+            while (true) {
+            cout << "Ar norite generuoti studento vardą ir pavardę ar įvesti ranka? (g/r): \n"
+                         << "Įveskite 'baigti', kai norėsite baigti įvestį \n"
+                         << "Įveskite 'iseiti', jei norite išeiti \n";       
+            cin >> choice;
         if (choice == "iseiti") { 
             return 0;
         }
@@ -86,6 +87,8 @@ int main() {
                 break; 
             }
         }
+        string firstName, lastName;
+        Student temp;
         switch (choice[0]) {
             case 'r':
             while(true){
@@ -108,28 +111,32 @@ int main() {
                     }
                     break;
         }
-                    temp = {firstName, lastName}; 
+            temp.setFirstName(firstName);
+            temp.setLastName(lastName);
 
                     cout << "Ar norite vesti namų darbų pažymius ranka ar generuoti? (r/g): ";
                     cin >> input;
                     if (input == "r") {
-                    cout << "Įveskite namų darbų pažymius " << temp.firstName << ' ' << temp.lastName << " (įveskite '-1', kad baigti):\n";
-                    while (cin >> grade) {
+                    cout << "Įveskite namų darbų pažymius " << temp.getFirstName() << ' ' << temp.getLastName() << " (įveskite '-1', kad baigti):\n";
+        while (cin >> grade) {
                 if (grade == "-1") {
                     break;
                 }
                 if (isValidGrade(grade)) {
-                    temp.grades.push_back(stoi(grade));
-                } else {
+            vector<int> grades = temp.getGrades(); 
+            grades.push_back(stoi(grade)); 
+            temp.setGrades(grades);              
+                     } 
+            else {
                     cout << "Neteisinga įvestis. Pažymiai gali būti tik skaičiai nuo 1 iki 10. " << endl;
                 }
          }
         
             while (true) {
-            cout << "Įveskite egzamino pažymį " << temp.firstName << ' ' << temp.lastName << ":\n";
+            cout << "Įveskite egzamino pažymį " << temp.getFirstName() << ' ' << temp.getLastName() << ":\n";
             cin >> finalExamGrade;
             if (isValidGrade(finalExamGrade)) {
-                temp.finalExamGrade = stoi(finalExamGrade);
+                temp.setFinalExamGrade(stoi(finalExamGrade));
                 numStudents++;
                 break;
             } else {
@@ -175,24 +182,26 @@ int main() {
             cout << "Ar norite vesti namų darbų pažymius ranka ar generuoti? (r/g): ";
                     cin >> input;
                     if (input == "r") {
-            cout << "Įveskite namų darbų pažymius " << temp.firstName << ' ' << temp.lastName << " (įveskite '-1', kad baigti):\n";
-        while (cin >> grade) {
+        cout << "Įveskite namų darbų pažymius " << temp.getFirstName() << ' ' << temp.getLastName() << " (įveskite '-1', kad baigti):\n";
+    while (cin >> grade) {
                 if (grade == "-1") {
                     break;
                 }
                 if (isValidGrade(grade)) {
-                    temp.grades.push_back(stoi(grade));
+            vector<int> grades = temp.getGrades(); // Get current grades
+            grades.push_back(stoi(grade)); // Add new grade
+            temp.setGrades(grades); 
                 } else {
                     cout << "Neteisinga įvestis. Pažymiai gali būti tik skaičiai nuo 1 iki 10. " << endl;
                 }
          }
          
         while (true) {
-        cout << "Įveskite egzamino pažymį " << temp.firstName << ' ' << temp.lastName << ":\n";
+        cout << "Įveskite egzamino pažymį " << temp.getFirstName() << ' ' << temp.getLastName() << ":\n";
         cin >> finalExamGrade;
             if (isValidGrade(finalExamGrade)) {
-                temp.finalExamGrade = stoi(finalExamGrade);
-                numStudents++;
+            temp.setFinalExamGrade(stoi(finalExamGrade));
+            numStudents++;
                 break;
             } else {
                 cin.clear();
@@ -242,9 +251,9 @@ int main() {
                 cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
                 cout <<"--------------------------------------------------------------------------------------------\n";
                 for (const auto& student : students) {
-                    cout << fixed << setw(10) << student.firstName << setw(20) << student.lastName;
-                    cout << fixed << setw(20) << setprecision(2)<< calculateAverage(student)*0.4+student.finalExamGrade*0.6;
-                    cout << fixed << setw(25) << setprecision(2)<< calculateMedian(student)*0.4+student.finalExamGrade*0.6 << '\n';
+                    cout << fixed << setw(10) << student.getFirstName() << setw(20) << student.getLastName();
+                    cout << fixed << setw(20) << setprecision(2)<< student.getAverage()*0.4+student.getFinalExamGrade() * 0.6;
+                    cout << fixed << setw(25) << setprecision(2)<< student.getMedian()*0.4+student.getFinalExamGrade() * 0.6<< '\n';
                 }
 
                  } catch (const exception& e) {

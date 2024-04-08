@@ -1,4 +1,5 @@
 #include "vektoriai.h"
+#include "student.h"
 
 bool isValidName(const string& name) {
     if (name.length() < 2) {
@@ -24,32 +25,36 @@ bool isValidGrade(const string& grade) {
 
 double calculateAverage(const Student& student){
     double sum = 0;
-    for(const auto& grade : student.grades){
+    for(const auto& grade : student.getGrades()){
         sum += grade;
     }
 
-    double average = sum / student.grades.size();
+    double average = sum / student.getGrades().size();
 
     return average;
 }
 
 double calculateMedian(const Student& student) {
-    Student temp = student; 
-    sort(temp.grades.begin(), temp.grades.end());
+    Student temp = student;
 
-    if (temp.grades.empty()) {
-        return 0.0;
-    }
-    size_t size = temp.grades.size();
+    vector<int> grades = temp.getGrades();
+
+    sort(grades.begin(), grades.end());
+
+    size_t size = grades.size();
+    auto middle = grades.begin();
+    std::advance(middle, size / 2); 
     if (size % 2 != 0) {
-        return static_cast<double>(temp.grades[size / 2]);
+        return static_cast<double>(*middle);
     } else {
-        return static_cast<double>(temp.grades[size / 2 - 1] + temp.grades[size / 2]) / 2.0;
+        auto prev = middle;
+        --prev;
+        return static_cast<double>(*prev + *middle) / 2.0;
     }
 }
 
 void randomGradeGenerator(int number, Student& student) {
-    student.grades.clear();
+    student.setGrades(vector<int>());
     srand(time(NULL));
     cout << "Namų darbų pažymiai:" << endl;
     for (int i = 0; i < number; i++) {
@@ -57,11 +62,13 @@ void randomGradeGenerator(int number, Student& student) {
         do {
             grade = rand() % 10 + 1; 
         } while (!isValidGrade(to_string(grade))); 
-        student.grades.push_back(grade);
-        cout << student.grades.back() << endl;
+        vector<int> grades = student.getGrades(); // Get current grades
+        grades.push_back(grade); // Add new grade
+        student.setGrades(grades);
+        cout << student.getGrades().back() << endl;
     }
-    student.finalExamGrade = rand() % 10 + 1; 
-    cout << "Egzamino pažymys: "  << endl << student.finalExamGrade << endl;
+    student.setFinalExamGrade(rand() % 10 + 1);
+    cout << "Egzamino pažymys: "  << endl << student.getFinalExamGrade() << endl;
 }
 
 void generateNames(Student& student) {
@@ -72,9 +79,9 @@ void generateNames(Student& student) {
     random_shuffle(firstNames.begin(), firstNames.end());
     random_shuffle(lastNames.begin(), lastNames.end());
 
-    student.firstName = firstNames[rand() % firstNames.size()];
-    student.lastName = lastNames[rand() % lastNames.size()];
-    cout << "Sugeneruotas vardas ir pavardė: " << student.firstName << " " << student.lastName << endl;
+    student.setFirstName(firstNames[rand() % firstNames.size()]); 
+    student.setLastName(lastNames[rand() % lastNames.size()]);
+    cout << "Sugeneruotas vardas ir pavardė: " << student.getFirstName() << " " << student.getLastName()<< endl;
 }
 
 void readFromFile(const string& filename, vector<Student>& students) {
@@ -92,19 +99,23 @@ void readFromFile(const string& filename, vector<Student>& students) {
             stringstream ss(line);
             ss >> firstName >> lastName;
             Student student;
-            student.firstName = firstName;
-            student.lastName = lastName;
+            student.setFirstName(firstName); 
+            student.setLastName(lastName);
 
             int grade;
+             vector<int> grades = student.getGrades(); 
             while (ss >> grade) {
-                student.grades.push_back(grade);
+        grades.push_back(grade); // Add new grade
+        student.setGrades(grades);
             }
-            if(!student.grades.empty()) {
-                student.finalExamGrade = student.grades.back();
-                student.grades.pop_back();
+             if(!student.getGrades().empty()) {
+            student.setFinalExamGrade(student.getGrades().back());  
+            grades.pop_back();
             }
-            student.fin_average = calculateAverage(student) * 0.4 + student.finalExamGrade * 0.6;
-            student.fin_median = calculateMedian(student) * 0.4 + student.finalExamGrade * 0.6;
+            student.setGrades(grades);
+
+        student.setFinalAverage(calculateAverage(student) * 0.4 + student.getFinalExamGrade() * 0.6); 
+        student.setFinalMedian(calculateMedian(student) * 0.4 + student.getFinalExamGrade() * 0.6);
             
             students.push_back(student);
         }
@@ -126,11 +137,11 @@ void readFromFile(const string& filename, vector<Student>& students) {
 
 
 bool sortByAverage(const Student& studentA, const Student& studentB) {
-    return studentA.fin_average > studentB.fin_average;
+    return studentA.getFinalAverage() > studentB.getFinalAverage(); 
 }
 
 bool sortByMedian(const Student& studentA, const Student& studentB) {
-    return studentA.fin_median > studentB.fin_median;
+    return studentA.getFinalMedian() > studentB.getFinalMedian(); 
 }
 
 void sortStudents(vector<Student>& students, char option) {
@@ -141,26 +152,19 @@ void sortStudents(vector<Student>& students, char option) {
     switch (option) {
         case '1': {
             start = chrono::high_resolution_clock::now(); 
-            // Sorting logic for case 1
             stop = chrono::high_resolution_clock::now(); 
-            time = stop - start;
-            cout << "Rūšiavimas užtruko " << time.count() << " sekundės " << endl;
             break;
         }
         case '2': {
-            start = chrono::high_resolution_clock::now(); 
-            sort(students.begin(), students.end(), sortByAverage);
-            stop = chrono::high_resolution_clock::now(); 
-            time = stop - start;
-            cout << "Rūšiavimas užtruko " << time.count() << " sekundės " << endl;
+            start = chrono::high_resolution_clock::now();
+            sort(students.begin(), students.end(), [](const Student& a, const Student& b) { return a.getFinalAverage() > b.getFinalAverage(); });
+            stop = chrono::high_resolution_clock::now();
             break;
         }
         case '3': {
-            start = chrono::high_resolution_clock::now(); 
-            sort(students.begin(), students.end(), sortByMedian);
-            stop = chrono::high_resolution_clock::now(); 
-            time = stop - start;
-            cout << "Rūšiavimas užtruko " << time.count() << " sekundės " << endl;
+            start = chrono::high_resolution_clock::now();
+            sort(students.begin(), students.end(), [](const Student& a, const Student& b) { return a.getFinalMedian() > b.getFinalMedian(); });
+            stop = chrono::high_resolution_clock::now();
             break;
         }
         default: {
@@ -168,6 +172,8 @@ void sortStudents(vector<Student>& students, char option) {
             exit(EXIT_FAILURE);
         }
     }
+    time = stop - start;
+    cout << "Rūšiavimas užtruko " << time.count() << " sekundės " << endl;
 }
 
 
@@ -175,10 +181,10 @@ void printResults(const vector<Student>& students, char sortingOption, const str
     if (outputFilename.empty()) {
         cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
         cout << "--------------------------------------------------------------------------------------------\n";
-        for (int i = 0; i < students.size(); i++) {
-            cout << fixed << setw(10) << students[i].firstName << setw(20) << students[i].lastName;
-            cout << fixed << setw(20) << setprecision(2) << students[i].fin_average;
-            cout << fixed << setw(25) << setprecision(2) << students[i].fin_median << '\n';
+        for (int i = 0; i < static_cast<int>(students.size()); i++) {
+            cout << fixed << setw(10) << students[i].getFirstName() << setw(20) << students[i].getLastName(); // Using getter methods
+            cout << fixed << setw(20) << setprecision(2) << students[i].getFinalAverage(); // Using getter method
+            cout << fixed << setw(25) << setprecision(2) << students[i].getFinalMedian() << '\n'; // Using getter method
         }
     } else {
         ofstream outputFile(outputFilename);
@@ -188,10 +194,10 @@ void printResults(const vector<Student>& students, char sortingOption, const str
         }
         outputFile << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
         outputFile << "--------------------------------------------------------------------------------------------\n";
-        for (int i = 0; i < students.size(); i++) {
-            outputFile << fixed << setw(10) << students[i].firstName << setw(20) << students[i].lastName;
-            outputFile << fixed << setw(20) << setprecision(2) << students[i].fin_average;
-            outputFile << fixed << setw(25) << setprecision(2) << students[i].fin_median << '\n';
+        for (int i = 0; i < static_cast<int>(students.size()); i++) {
+            outputFile << fixed << setw(10) << students[i].getFirstName() << setw(20) << students[i].getLastName(); // Using getter methods
+            outputFile << fixed << setw(20) << setprecision(2) << students[i].getFinalAverage(); // Using getter method
+            outputFile << fixed << setw(25) << setprecision(2) << students[i].getFinalMedian() << '\n'; // Using getter method
         }
         outputFile.close();
         cout << "Rezultatus rasite: " << outputFilename << endl;

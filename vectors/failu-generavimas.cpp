@@ -1,6 +1,7 @@
 #include "failu-generavimas.h"
+#include "student.h"
 
-void writeCategorizedStudents(const vector<Student>& students, const string& filename) {
+void writeCategorizedStudents(const vector<Student>& students, const string& filename) { 
     auto start = chrono::high_resolution_clock::now(); 
     ofstream outputFile(filename);
    
@@ -9,16 +10,17 @@ void writeCategorizedStudents(const vector<Student>& students, const string& fil
         return;
     }
 
-    outputFile << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(10) << "Galutinis" << endl;
-    outputFile << "------------" << "------------" << "----------" << endl;
+    outputFile << left << setw(25) << "Vardas" << setw(25) << "Pavarde" << setw(15) << "Galutinis" << endl;
+    outputFile << "------------------------------------------------------------------------" << endl;
 
     for (const auto& student : students) {
-        outputFile << student.firstName << " " << student.lastName << " " << student.finalExamGrade << endl;
+        outputFile << left << setw(25) << student.getFirstName() << setw(25) << student.getLastName() << fixed << setprecision(5) << setw(15) << student.getFinalGrade() << endl;
     }
 
     outputFile.close();
     auto stop = chrono::high_resolution_clock::now(); 
     chrono::duration<double> time = stop - start;
+    //cout << "Surūšiotus studentus rasite: " << filename << endl;
     cout << "Studentų išvedimo į " << filename << " laikas: " << time.count() << " sekundės " << endl;
 }
 
@@ -43,9 +45,9 @@ void generateFiles() {
 
         for (int i = 1; i <= numRecords; ++i) {
             Student student;
-            student.firstName = "Vardas" + to_string(i);
-            student.lastName = "Pavarde" + to_string(i);
-            outputFile << left << setw(25) << student.firstName << setw(25) << student.lastName;
+            student.setFirstName("Vardas" + to_string(i));
+            student.setLastName("Pavarde" + to_string(i));
+            outputFile << left << setw(25) << student.getFirstName() << setw(25) << student.getLastName();
         
             for (int j = 1; j <= 15; ++j) {
                 int grade = rand() % 10 + 1; 
@@ -70,7 +72,6 @@ void generateFiles() {
     }
 }
 
-
 void sortAndWriteToFile(const string& inputFilename) {
     vector<Student> students;
     readFromFile(inputFilename, students);
@@ -78,11 +79,11 @@ void sortAndWriteToFile(const string& inputFilename) {
     auto start = chrono::high_resolution_clock::now();
 
     for (auto& student : students) {
-        student.finalGrade = calculateAverage(student) * 0.4 + student.finalExamGrade * 0.6;
+        student.setFinalGrade(calculateAverage(student) * 0.4 + student.getFinalExamGrade() * 0.6);
     }
 
     sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
-        return a.finalGrade > b.finalGrade;
+        return a.getFinalGrade() > b.getFinalGrade();
     });
 
     auto stop1 = chrono::high_resolution_clock::now();
@@ -91,7 +92,7 @@ void sortAndWriteToFile(const string& inputFilename) {
 
     vector<Student> vargsiukai, kietiakai;
     for (const auto& student : students) {
-        if (student.finalGrade < 5.0 ) {
+        if (student.getFinalGrade() < 5.0 ) {
             vargsiukai.push_back(student);
         } else {
             kietiakai.push_back(student);
@@ -132,3 +133,4 @@ void generatingFinal() {
          exit(EXIT_FAILURE);
     }
 }
+

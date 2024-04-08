@@ -11,6 +11,7 @@
 #include <ctime>
 #include <cstdlib>
 #include "vektoriai.h"
+#include "student.h"
 
 using namespace std;
 
