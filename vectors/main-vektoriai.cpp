@@ -7,14 +7,19 @@ int main() {
     int numStudents = 0;
     vector<Student> students;
     string input, grade, finalExamGrade, choice, option, line, filename;
-    
-    generatingFinal();
 
-    cout << "1 - Jei norite nuskaityti iš failo \n" << "2 - Jei norite vesti duomenis \n" << "3 - Jei norite išeiti \n";;
+    cout << "0 - Tikrinti Rule of Five ir I&O \n" << "1 - Jei norite generuoti failus \n" << "2 - Jei norite nuskaityti iš failo \n" << "3 - Jei norite vesti duomenis \n" << "4 - Jei norite išeiti \n";;
     cin >> option; 
 
 switch (option [0]){
+    case '0' :
+        tests();
+        cout << "1 - Jei norite generuoti failus \n" << "2 - Jei norite nuskaityti iš failo \n" << "3 - Jei norite vesti duomenis \n" << "4 - Jei norite išeiti \n";;
+        cin >> option;
     case '1' :
+        generatingFinal();
+        exit(EXIT_FAILURE);
+    case '2' :
     cout << "Iš kurio failo norite nuskaityti?" << endl;
     cout << "1 - studentai10000.txt" << endl;
     cout << "2 - studentai100000.txt" << endl;
@@ -69,7 +74,7 @@ switch (option [0]){
     }
             break;
 
-    case '2' :
+    case '3' :
         try{
             while (true) {
             cout << "Ar norite generuoti studento vardą ir pavardę ar įvesti ranka? (g/r): \n"
@@ -262,8 +267,9 @@ switch (option [0]){
                 }
             break; 
 
-        case '3' :
+        case '4' :
         return 0;
+
         default:
             cout << "Neteisinga įvestis. Pasirinkite 1 arba 2.\n";
             break;

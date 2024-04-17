@@ -202,5 +202,53 @@ void printResults(const vector<Student>& students, char sortingOption, const str
         outputFile.close();
         cout << "Rezultatus rasite: " << outputFilename << endl;
     }
+}
 
+void tests() {
+    // Test constructor with parameters
+    Student s2("Alice", "Brown");
+    assert(s2.getFirstName() == "Alice");
+    assert(s2.getLastName() == "Brown");
+    assert(s2.getGrades().empty());
+    assert(s2.getFinalExamGrade() == 0);
+    assert(s2.getMedian() == 0.0);
+    assert(s2.getAverage() == 0.0);
+    assert(s2.getFinalMedian() == 0.0);
+    assert(s2.getFinalAverage() == 0.0);
+    assert(s2.getFinalGrade() == 0.0);
+
+    // Test copy constructor
+    Student s3 = s2;
+    assert(s3.getFirstName() == "Alice");
+    assert(s3.getLastName() == "Brown");
+    assert(s3.getGrades().empty());
+    assert(s3.getFinalExamGrade() == 0);
+    assert(s3.getMedian() == 0.0);
+    assert(s3.getAverage() == 0.0);
+    assert(s3.getFinalMedian() == 0.0);
+    assert(s3.getFinalAverage() == 0.0);
+    assert(s3.getFinalGrade() == 0.0);
+
+    // Test move constructor
+    Student s4 = std::move(s3);
+    assert(s4.getFirstName() == "Alice");
+    assert(s4.getLastName() == "Brown");
+    assert(s4.getGrades().empty());
+    assert(s4.getFinalExamGrade() == 0);
+    assert(s4.getMedian() == 0.0);
+    assert(s4.getAverage() == 0.0);
+    assert(s4.getFinalMedian() == 0.0);
+    assert(s4.getFinalAverage() == 0.0);
+    assert(s4.getFinalGrade() == 0.0);
+    assert(s3.getFirstName() == "");
+    assert(s3.getLastName() == "");
+    assert(s3.getGrades().empty());
+    assert(s3.getFinalExamGrade() == 0);
+    assert(s3.getMedian() == 0.0);
+    assert(s3.getAverage() == 0.0);
+    assert(s3.getFinalMedian() == 0.0);
+    assert(s3.getFinalAverage() == 0.0);
+    assert(s3.getFinalGrade() == 0.0);
+
+    cout << "All tests passed successfully!" << endl;
 }
