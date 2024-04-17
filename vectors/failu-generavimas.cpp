@@ -79,7 +79,8 @@ void sortAndWriteToFile(const string& inputFilename) {
     auto start = chrono::high_resolution_clock::now();
 
     for (auto& student : students) {
-        student.setFinalGrade(calculateAverage(student) * 0.4 + student.getFinalExamGrade() * 0.6);
+       double average = calculateAverage(student);
+        student.setFinalGrade(average * 0.4 + student.getFinalExamGrade() * 0.6);
     }
 
     sort(students.begin(), students.end(), [](const Student& a, const Student& b) {
@@ -90,21 +91,23 @@ void sortAndWriteToFile(const string& inputFilename) {
     chrono::duration<double> time1 = stop1 - start;
     cout << "Studentų rūšiavimo didėjimo tvarka " << inputFilename << " laikas: " << time1.count() << " sekundės " << endl;
 
-    vector<Student> vargsiukai, kietiakai;
-    for (const auto& student : students) {
-        if (student.getFinalGrade() < 5.0 ) {
+     vector<Student> vargsiukai;
+    auto partitionPoint = std::remove_if(students.begin(), students.end(), [&](const Student& student) {
+         if (student.getFinalGrade() < 5.0) {
             vargsiukai.push_back(student);
-        } else {
-            kietiakai.push_back(student);
+            return true; 
         }
-    }
+        return false;
+    });
+    students.erase(partitionPoint, students.end()); 
 
-    auto stop = chrono::high_resolution_clock::now();
-    chrono::duration<double> time = stop - start;
-    cout << "Studentų skirstymas " << inputFilename << " į kietekus ir vargšiukus laikas: " << time.count() << " sekundės " << endl;
-    cout << endl;
-    writeCategorizedStudents(vargsiukai, "vargsiukai_" + inputFilename);
-    writeCategorizedStudents(kietiakai, "kietiakai_" + inputFilename);
+
+auto stop = chrono::high_resolution_clock::now();
+chrono::duration<double> time = stop - start;
+cout << "Studentų skirstymas " << inputFilename << " į kietekus ir vargšiukus pagal 2 strategiją laikas: " << time.count() << " sekundės " << endl;
+cout << endl;
+
+writeCategorizedStudents(vargsiukai, "vargsiukai_" + inputFilename);
 }
 
 void generatingFinal() {
