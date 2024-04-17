@@ -4,13 +4,6 @@
 3. Pasirinkus 2: paklausiama iš kurio iš 4-ių failų norima nuskaityti. Apskaičiavus rezultatus vartotojo paklausiama kaip jis norėtų rūšiuoti duomenis: vardas, pavardė, galutinis pagal vidurkį arba galutinis pagal medianą. 
 4. Pasirinkus 3:  paklausiama ar nori įvesti studento vardą bei pavardę ranka ar generuoti.Paklausiama kokiu būdu norima įvesti pažymius (įrašyti ranka arba generuoti atsitiktinai). Įrašius visus pažymius ir egzamino įvertinimą, vartotojui leidžiama pasirinkti pridėti dar studentų arba baigti žmonių įvedimą. Pasirinkus vartotojui yra atspausdinamas sąrašas su visais studentais ir jų galutiniais vidurkiais ir medianomis.
 
-### Naujos repozitorijos sukūrimas
-- git clone --mirror https://github.com/zubarev4/Pazymio-skaiciuokle1.git
-- git clone --bare C:\Users\Pazymio-skaiciuokle1.git Pazymio-skaiciuokle2
-- git branch -a
-- git remote set-url origin https://github.com/zubarev4/Pazymio-skaiciuokle2.git
-- git push --mirror
-
 ### Instaliavimo instrukcija
 - Jeigu naudojate „Visual Studio Code“, rekomenduojama įdiegti šiuos išplėtinius: "C/C++ Extension Pack", "C/C++ Runner", "Code Runner".
 - Taip pat parsisiuskite https://www.msys2.org/ ir nusistatykite bin folderį į PATH per environmental variables.
