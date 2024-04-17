@@ -21,44 +21,111 @@
 - Taip pat parsisiuskite https://www.msys2.org/ ir nusistatykite bin folderį į PATH per environmental variables.
 - Meniu juostos pasirinkite "Terminal“ -> "Select Default Profile“. Šiame lange turėtumete rasti bash(MSYS2) C:\msys64\usr\bin\bash.exe. Naudodami cd komandą, pateikite klonuoto saugyklos kelią: cd jūsų/direktorijos/kelias/ Pavyzdžiui, cd /c/ISI/1k/2s/Objektinis\ programavimas/v1.0
 - Norėdami paleisti programą, turite ją sukompiliuoti naudodami „Makefile“ failą, kuris yra saugykloje. Programos terminale rašykite: make ; ./program_pavadinimas
- 
-### Struct ir Class
-                                            1000000 Studentų
 
-|                       | Struct                        | Class                         |
-|-----------------------|-------------------------------|-------------------------------|
-| Skaitymas iš failo =  | 3.72s                         | 4.1895s                       |
-| Studentų rūšiavimas = | 0.3307s                       | 0.2467s                       | 
-| Studentų skirstymas = | 0.8901s                       | 0.69167s                       | 
-| Visos programos veikimo laikas = | 174s                       | 168s                       | 
+## v1.2
+### Rule of five
+https://en.cppreference.com/w/cpp/language/rule_of_three
 
-                                                 10000000 Studentų
+- copy constructor,
+  
+Student(const Student& other)
+    : firstName(other.firstName), lastName(other.lastName), grades(other.grades), finalExamGrade(other.finalExamGrade), median(other.median), average(other.average), fin_median(other.fin_median), fin_average(other.fin_average), finalGrade(other.finalGrade) {}
+  
+- copy assignment operator,
 
-|                       | Struct                        | Class                         |
-|-----------------------|-------------------------------|-------------------------------|
-| Skaitymas iš failo =  | 39.046s                       | 40.077s                      | 
-| Studentų rūšiavimas = | 3.6826s                       | 2.9432s                      |
-| Studentų skirstymas = | 9.9272s                       | 6.2989s                       |
-| Visos programos veikimo laikas = | 174s                       | 168s                       | 
+ Student& operator=(const Student& other) {
+        if (this != &other) { // self-assignment check
+            firstName = other.firstName;
+            lastName = other.lastName;
+            grades = other.grades;
+            finalExamGrade = other.finalExamGrade;
+            median = other.median;
+            average = other.average;
+            fin_median = other.fin_median;
+            fin_average = other.fin_average;
+            finalGrade = other.finalGrade;
+        }
+        return *this;
+    }   
 
-### Flagai
+- move constructor,
 
-Tyrimai atlikti su 10000000 failu.
+Student(Student&& other) noexcept
+    : firstName(std::move(other.firstName)), lastName(std::move(other.lastName)), grades(std::move(other.grades)), finalExamGrade(std::move(other.finalExamGrade)), median(std::move(other.median)), average(std::move(other.average)), fin_median(std::move(other.fin_median)), fin_average(std::move(other.fin_average)), finalGrade(std::move(other.finalGrade)) {}
 
-                               Class
-|                       | -O1                        | -O2                          | -O3                         |
-|-----------------------|-------------------------------|-------------------------------|-------------------------------|
-| Skaitymas iš failo =  | 43.8272s                         | 41.6687s                       | 41.7454s                       |
-| Studentų rūšiavimas = | 3.41802s                       | 5.57437s                       | 2.92606s                       |
-| Studentų skirstymas = | 7.04712s                       | 9.11836s                       | 6.30334s                       |
-| Visos programos veikimo laikas = | 168s                       | 197s                       | 227s                       |
-| .exe dydis = | 142 KB                       | 140 KB                       | 179 KB       |
 
-                               Struct
-|                       | -O1                        | -O2                          | -O3                         |
-|-----------------------|-------------------------------|-------------------------------|-------------------------------|
-| Skaitymas iš failo =  | 26.6503s                         | 29.0225s                       | 28.0112s                       |
-| Studentų rūšiavimas = | 2.9477s                       | 3.5303s                       | 3.13828s                       |
-| Studentų skirstymas = | 6.46039s                       | 7.46403s                       | 6.93389s                       |
-| Visos programos veikimo laikas = | 193s                       | 201s                       | 197s                       |
-| .exe dydis = | 142 KB                       | 140 KB                       | 159 KB       |
+- move assignment operator,
+
+Student& operator=(Student&& other) noexcept {
+        if (this != &other) { 
+            firstName = std::move(other.firstName);
+            lastName = std::move(other.lastName);
+            grades = std::move(other.grades);
+            finalExamGrade = std::move(other.finalExamGrade);
+            median = std::move(other.median);
+            average = std::move(other.average);
+            fin_median = std::move(other.fin_median);
+            fin_average = std::move(other.fin_average);
+            finalGrade = std::move(other.finalGrade);
+        }
+        return *this;
+    }
+
+- destructor
+
+  ~Student() {}
+
+
+### Įvesties/išvesties operatoriai
+
+#### Input
+Įvesties nustatymams naudojami setteriai. Kaip pavyzdį naudosiu setVardas.
+Metodas setVardas nustato mokinio vardą.
+Gavęs vardą, jis jį išsaugo privačiame nario kintamajame vardas. Pvz:
+cin >> vardas;
+naujas_studentas.setVardas(vardas);
+
+_Rankinis įvedimas_
+
+Vartotojai pateikia studento vardą per įvestį. Metodas setVardas nustato studento vardą ir išsaugo jį privačiame nario kintamajame vardas.
+
+_Automatinis įvedimas_
+
+Programa sugeneruoja mokinio duomenis. Metodas gali priimti vardą ir saugoti jį privačiame nario kintamajame vardas.
+
+_Įvestis iš failo_
+
+Metodas gali nuskaityti mokinio vardą iš failo ir tada jį išsaugoti privačiuose nario kintamuosiuose.
+
+
+// Input Operator
+friend std::istream& operator>>(std::istream& i, Student& student) {
+    i >> student.firstName >> student.lastName;
+    int numGrades;
+    i >> numGrades;
+    student.grades.resize(numGrades);
+    for (int j = 0; j < numGrades; ++j) {
+        i >> student.grades[j];
+    }
+    i >> student.finalExamGrade;
+    i >> student.median >> student.average;
+    i >> student.fin_median >> student.fin_average >> student.finalGrade;
+    return i;
+}
+
+#### Output
+
+// Output Operator
+friend std::ostream& operator<<(std::ostream& os, const Student& student) {
+    os << "First Name: " << student.firstName << "\n"
+       << "Last Name: " << student.lastName << "\n";
+    os << "Grades: ";
+    for (int grade : student.grades) {
+        os << grade << " ";
+    }
+    os << "\nFinal Exam Grade: " << student.finalExamGrade << "\n"
+       << "Median: " << student.median << "\n"
+       << "Average: " << student.average << "\n"
+       << "Final Grade: " << student.finalGrade << "\n";
+    return os;
+}
