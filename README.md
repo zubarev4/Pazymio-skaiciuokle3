@@ -18,6 +18,19 @@ https://en.cppreference.com/w/cpp/language/rule_of_three
   
 Student(const Student& other)
     : firstName(other.firstName), lastName(other.lastName), grades(other.grades), finalExamGrade(other.finalExamGrade), median(other.median), average(other.average), fin_median(other.fin_median), fin_average(other.fin_average), finalGrade(other.finalGrade) {}
+
+ // Test copy constructor
+    Student s3 = s2;
+    assert(s3.getFirstName() == "Alice");
+    assert(s3.getLastName() == "Brown");
+    assert(s3.getGrades().empty());
+    assert(s3.getFinalExamGrade() == 0);
+    assert(s3.getMedian() == 0.0);
+    assert(s3.getAverage() == 0.0);
+    assert(s3.getFinalMedian() == 0.0);
+    assert(s3.getFinalAverage() == 0.0);
+    assert(s3.getFinalGrade() == 0.0);
+
   
 - copy assignment operator,
 
@@ -40,6 +53,27 @@ Student(const Student& other)
 
 Student(Student&& other) noexcept
     : firstName(std::move(other.firstName)), lastName(std::move(other.lastName)), grades(std::move(other.grades)), finalExamGrade(std::move(other.finalExamGrade)), median(std::move(other.median)), average(std::move(other.average)), fin_median(std::move(other.fin_median)), fin_average(std::move(other.fin_average)), finalGrade(std::move(other.finalGrade)) {}
+
+// Test move constructor
+    Student s4 = std::move(s3);
+    assert(s4.getFirstName() == "Alice");
+    assert(s4.getLastName() == "Brown");
+    assert(s4.getGrades().empty());
+    assert(s4.getFinalExamGrade() == 0);
+    assert(s4.getMedian() == 0.0);
+    assert(s4.getAverage() == 0.0);
+    assert(s4.getFinalMedian() == 0.0);
+    assert(s4.getFinalAverage() == 0.0);
+    assert(s4.getFinalGrade() == 0.0);
+    assert(s3.getFirstName() == "");
+    assert(s3.getLastName() == "");
+    assert(s3.getGrades().empty());
+    assert(s3.getFinalExamGrade() == 0);
+    assert(s3.getMedian() == 0.0);
+    assert(s3.getAverage() == 0.0);
+    assert(s3.getFinalMedian() == 0.0);
+    assert(s3.getFinalAverage() == 0.0);
+    assert(s3.getFinalGrade() == 0.0);
 
 
 - move assignment operator,
