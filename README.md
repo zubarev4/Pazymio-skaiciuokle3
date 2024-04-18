@@ -15,11 +15,11 @@
 https://en.cppreference.com/w/cpp/language/rule_of_three
 
 - copy constructor,
-  
+```cpp
 Student(const Student& other)
     : firstName(other.firstName), lastName(other.lastName), grades(other.grades), finalExamGrade(other.finalExamGrade), median(other.median), average(other.average), fin_median(other.fin_median), fin_average(other.fin_average), finalGrade(other.finalGrade) {}
 
- // Test copy constructor
+ // Test copy constructor in tests() located in vektoriai.cpp
     Student s3 = s2;
     assert(s3.getFirstName() == "Alice");
     assert(s3.getLastName() == "Brown");
@@ -30,10 +30,10 @@ Student(const Student& other)
     assert(s3.getFinalMedian() == 0.0);
     assert(s3.getFinalAverage() == 0.0);
     assert(s3.getFinalGrade() == 0.0);
-
+```
   
 - copy assignment operator,
-
+```cpp
  Student& operator=(const Student& other) {
         if (this != &other) { // self-assignment check
             firstName = other.firstName;
@@ -48,13 +48,13 @@ Student(const Student& other)
         }
         return *this;
     }   
-
+```
 - move constructor,
-
+```cpp
 Student(Student&& other) noexcept
     : firstName(std::move(other.firstName)), lastName(std::move(other.lastName)), grades(std::move(other.grades)), finalExamGrade(std::move(other.finalExamGrade)), median(std::move(other.median)), average(std::move(other.average)), fin_median(std::move(other.fin_median)), fin_average(std::move(other.fin_average)), finalGrade(std::move(other.finalGrade)) {}
 
-// Test move constructor
+// Test move constructor in tests() located in vektoriai.cpp
     Student s4 = std::move(s3);
     assert(s4.getFirstName() == "Alice");
     assert(s4.getLastName() == "Brown");
@@ -74,10 +74,10 @@ Student(Student&& other) noexcept
     assert(s3.getFinalMedian() == 0.0);
     assert(s3.getFinalAverage() == 0.0);
     assert(s3.getFinalGrade() == 0.0);
-
+```
 
 - move assignment operator,
-
+```cpp
 Student& operator=(Student&& other) noexcept {
         if (this != &other) { 
             firstName = std::move(other.firstName);
@@ -92,11 +92,11 @@ Student& operator=(Student&& other) noexcept {
         }
         return *this;
     }
-
+```
 - destructor
-
+```cpp
   ~Student() {}
-
+```
 
 ### Įvesties/išvesties operatoriai
 
@@ -119,35 +119,65 @@ _Įvestis iš failo_
 
 Metodas gali nuskaityti mokinio vardą iš failo ir tada jį išsaugoti privačiuose nario kintamuosiuose.
 
-
+```cpp
 // Input Operator
 friend std::istream& operator>>(std::istream& i, Student& student) {
-    i >> student.firstName >> student.lastName;
-    int numGrades;
-    i >> numGrades;
-    student.grades.resize(numGrades);
-    for (int j = 0; j < numGrades; ++j) {
-        i >> student.grades[j];
+    string firstName, lastName;
+    i >> firstName >> lastName;
+    student.setFirstName(firstName); 
+    student.setLastName(lastName);
+    vector<int> grades;
+    for (int j = 0; j < 15; ++j) {
+        int grade;
+        i >> grade;
+        grades.push_back(grade);
     }
+    student.setGrades(grades);
     i >> student.finalExamGrade;
-    i >> student.median >> student.average;
-    i >> student.fin_median >> student.fin_average >> student.finalGrade;
+   
+ // final average
+    double sum = 0;
+    for (int grade : grades) {
+        sum += grade;
+    }
+    double average = sum / grades.size();
+    double finalAverage = average * 0.4 + student.finalExamGrade * 0.6;
+    student.setFinalAverage(finalAverage);
+    
+//  final median
+    sort(grades.begin(), grades.end());
+    double finalMedian;
+    if (grades.size() % 2 == 0) {
+        finalMedian = (grades[grades.size() / 2 - 1] + grades[grades.size() / 2]) / 2.0;
+    } else {
+        finalMedian = grades[grades.size() / 2];
+    }
+    finalMedian = finalMedian * 0.4 + student.finalExamGrade * 0.6;
+    student.setFinalMedian(finalMedian);
+
     return i;
 }
+```
+Įvesties operatorių testuoju readFromFile metode vektoriai.cpp: 
+
+![image](https://github.com/zubarev4/Pazymio-skaiciuokle2/assets/147638474/e32d9a6b-ad6d-4af9-80e8-bd58ce36cdef)
+
+![image](https://github.com/zubarev4/Pazymio-skaiciuokle2/assets/147638474/27110d58-d0b5-440a-9182-8d7c7d8dc5d3)
+
 
 #### Output
-
+```cpp
 // Output Operator
 friend std::ostream& operator<<(std::ostream& os, const Student& student) {
-    os << "First Name: " << student.firstName << "\n"
-       << "Last Name: " << student.lastName << "\n";
-    os << "Grades: ";
-    for (int grade : student.grades) {
-        os << grade << " ";
-    }
-    os << "\nFinal Exam Grade: " << student.finalExamGrade << "\n"
-       << "Median: " << student.median << "\n"
-       << "Average: " << student.average << "\n"
-       << "Final Grade: " << student.finalGrade << "\n";
+    os << setw(10) << student.firstName << setw(20) << student.lastName; 
+    os << fixed << setw(25) << setprecision(2) << student.fin_average; 
+    os << fixed << setw(25) << setprecision(2) << student.fin_median << '\n'; 
     return os;
 }
+```
+Išvesties operatorių testuoju printResults metode vektoriai.cpp: 
+
+![image](https://github.com/zubarev4/Pazymio-skaiciuokle2/assets/147638474/6b5df0f0-017d-4cee-81f0-a2c15e68392b)
+
+![image](https://github.com/zubarev4/Pazymio-skaiciuokle2/assets/147638474/94980ada-c60a-465d-a5e9-5e072ea51387)
+
