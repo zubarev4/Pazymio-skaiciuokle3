@@ -64,22 +64,21 @@ public:
 
     // Input Operator
 friend std::istream& operator>>(std::istream& i, Student& student) {
-    std::string firstName, lastName;
+    string firstName, lastName;
     i >> firstName >> lastName;
     student.setFirstName(firstName); 
     student.setLastName(lastName);
 
-    std::vector<int> grades;
+    vector<int> grades;
     for (int j = 0; j < 15; ++j) {
         int grade;
         i >> grade;
         grades.push_back(grade);
     }
     student.setGrades(grades);
-
     i >> student.finalExamGrade;
 
-    // Calculate final average
+    // final average
     double sum = 0;
     for (int grade : grades) {
         sum += grade;
@@ -88,8 +87,8 @@ friend std::istream& operator>>(std::istream& i, Student& student) {
     double finalAverage = average * 0.4 + student.finalExamGrade * 0.6;
     student.setFinalAverage(finalAverage);
 
-    // Calculate final median
-    std::sort(grades.begin(), grades.end());
+    //  final median
+    sort(grades.begin(), grades.end());
     double finalMedian;
     if (grades.size() % 2 == 0) {
         finalMedian = (grades[grades.size() / 2 - 1] + grades[grades.size() / 2]) / 2.0;
@@ -101,7 +100,6 @@ friend std::istream& operator>>(std::istream& i, Student& student) {
 
     return i;
 }
-
 
 
 // Output Operator
