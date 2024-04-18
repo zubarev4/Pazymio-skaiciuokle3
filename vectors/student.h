@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "vektoriai.h"
 using namespace std;
 
 class Student {
@@ -63,33 +64,54 @@ public:
 
     // Input Operator
 friend std::istream& operator>>(std::istream& i, Student& student) {
-    i >> student.firstName >> student.lastName;
-    int numGrades;
-    i >> numGrades;
-    student.grades.resize(numGrades);
-    for (int j = 0; j < numGrades; ++j) {
-        i >> student.grades[j];
+    std::string firstName, lastName;
+    i >> firstName >> lastName;
+    student.setFirstName(firstName); 
+    student.setLastName(lastName);
+
+    std::vector<int> grades;
+    for (int j = 0; j < 15; ++j) {
+        int grade;
+        i >> grade;
+        grades.push_back(grade);
     }
+    student.setGrades(grades);
+
     i >> student.finalExamGrade;
-    i >> student.median >> student.average;
-    i >> student.fin_median >> student.fin_average >> student.finalGrade;
+
+    // Calculate final average
+    double sum = 0;
+    for (int grade : grades) {
+        sum += grade;
+    }
+    double average = sum / grades.size();
+    double finalAverage = average * 0.4 + student.finalExamGrade * 0.6;
+    student.setFinalAverage(finalAverage);
+
+    // Calculate final median
+    std::sort(grades.begin(), grades.end());
+    double finalMedian;
+    if (grades.size() % 2 == 0) {
+        finalMedian = (grades[grades.size() / 2 - 1] + grades[grades.size() / 2]) / 2.0;
+    } else {
+        finalMedian = grades[grades.size() / 2];
+    }
+    finalMedian = finalMedian * 0.4 + student.finalExamGrade * 0.6;
+    student.setFinalMedian(finalMedian);
+
     return i;
 }
 
+
+
 // Output Operator
 friend std::ostream& operator<<(std::ostream& os, const Student& student) {
-    os << "First Name: " << student.firstName << "\n"
-       << "Last Name: " << student.lastName << "\n";
-    os << "Grades: ";
-    for (int grade : student.grades) {
-        os << grade << " ";
-    }
-    os << "\nFinal Exam Grade: " << student.finalExamGrade << "\n"
-       << "Median: " << student.median << "\n"
-       << "Average: " << student.average << "\n"
-       << "Final Grade: " << student.finalGrade << "\n";
+    os << setw(10) << student.firstName << setw(20) << student.lastName; 
+    os << fixed << setw(25) << setprecision(2) << student.fin_average; 
+    os << fixed << setw(25) << setprecision(2) << student.fin_median << '\n'; 
     return os;
 }
+
 
     string getFirstName() const { return firstName; }
     string getLastName() const { return lastName; }

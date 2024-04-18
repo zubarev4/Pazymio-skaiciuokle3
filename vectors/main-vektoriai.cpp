@@ -14,8 +14,7 @@ int main() {
 switch (option [0]){
     case '0' :
         tests();
-        cout << "1 - Jei norite generuoti failus \n" << "2 - Jei norite nuskaityti iš failo \n" << "3 - Jei norite vesti duomenis \n" << "4 - Jei norite išeiti \n";;
-        cin >> option;
+        break;
     case '1' :
         generatingFinal();
         exit(EXIT_FAILURE);

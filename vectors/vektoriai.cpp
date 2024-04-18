@@ -92,30 +92,16 @@ void readFromFile(const string& filename, vector<Student>& students) {
             throw runtime_error("Failas nebuvo rastas arba negalima atidaryti."); 
         }
 
-        string header, line, firstName, lastName;
+        string header, line;
         getline(file, header); 
 
         while (getline(file, line)) {
             stringstream ss(line);
-            ss >> firstName >> lastName;
             Student student;
-            student.setFirstName(firstName); 
-            student.setLastName(lastName);
+            ss >> student; // input operator
 
-            int grade;
-             vector<int> grades = student.getGrades(); 
-            while (ss >> grade) {
-        grades.push_back(grade); // Add new grade
-        student.setGrades(grades);
-            }
-             if(!student.getGrades().empty()) {
-            student.setFinalExamGrade(student.getGrades().back());  
-            grades.pop_back();
-            }
-            student.setGrades(grades);
-
-        student.setFinalAverage(calculateAverage(student) * 0.4 + student.getFinalExamGrade() * 0.6); 
-        student.setFinalMedian(calculateMedian(student) * 0.4 + student.getFinalExamGrade() * 0.6);
+            student.setFinalAverage(calculateAverage(student) * 0.4 + student.getFinalExamGrade() * 0.6); 
+            student.setFinalMedian(calculateMedian(student) * 0.4 + student.getFinalExamGrade() * 0.6);
             
             students.push_back(student);
         }
@@ -127,6 +113,7 @@ void readFromFile(const string& filename, vector<Student>& students) {
         exit(EXIT_FAILURE); 
     }
     file.close();
+    cout << "Įvesties operatorius veikia. \n " << endl;
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> time = end - start;
     cout << endl;
@@ -181,11 +168,10 @@ void printResults(const vector<Student>& students, char sortingOption, const str
     if (outputFilename.empty()) {
         cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
         cout << "--------------------------------------------------------------------------------------------\n";
-        for (int i = 0; i < static_cast<int>(students.size()); i++) {
-            cout << fixed << setw(10) << students[i].getFirstName() << setw(20) << students[i].getLastName(); // Using getter methods
-            cout << fixed << setw(20) << setprecision(2) << students[i].getFinalAverage(); // Using getter method
-            cout << fixed << setw(25) << setprecision(2) << students[i].getFinalMedian() << '\n'; // Using getter method
+        for (const auto& student : students) {
+            cout << student; //  output operator 
         }
+        cout << "Išvesties operatorius veikia. \n " << endl;
     } else {
         ofstream outputFile(outputFilename);
         if (!outputFile.is_open()) {
@@ -194,15 +180,14 @@ void printResults(const vector<Student>& students, char sortingOption, const str
         }
         outputFile << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
         outputFile << "--------------------------------------------------------------------------------------------\n";
-        for (int i = 0; i < static_cast<int>(students.size()); i++) {
-            outputFile << fixed << setw(10) << students[i].getFirstName() << setw(20) << students[i].getLastName(); // Using getter methods
-            outputFile << fixed << setw(20) << setprecision(2) << students[i].getFinalAverage(); // Using getter method
-            outputFile << fixed << setw(25) << setprecision(2) << students[i].getFinalMedian() << '\n'; // Using getter method
+        for (const auto& student : students) {
+            outputFile << student; // output operator 
         }
         outputFile.close();
-        cout << "Rezultatus rasite: " << outputFilename << endl;
+        cout << "Išvesties operatorius veikia. \n " << "Rezultatus rasite: " << outputFilename << endl;
     }
 }
+
 
 void tests() {
     // Test constructor with parameters
@@ -250,5 +235,5 @@ void tests() {
     assert(s3.getFinalAverage() == 0.0);
     assert(s3.getFinalGrade() == 0.0);
 
-    cout << "All tests passed successfully!" << endl;
+    cout << "Visi testai sekmingi!" << endl;
 }
