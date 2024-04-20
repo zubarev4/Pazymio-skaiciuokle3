@@ -30,4 +30,4 @@
 
 ## v2.0
 - Realizuoti ir demonstruojami unit test testai su savo klasė.
-- Pateikta klasė, aprašanti dokumentacija HTML/TEX formatais.
+- Pateikta klasė, aprašanti dokumentacija HTML/TEX formatais. - https://www.doxygen.nl/manual/index.html
