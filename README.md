@@ -2,7 +2,7 @@
 - Pratęskite (tuo pačiu ir patobulinkite) 1-osios užduoties Jūsų turimą programos realizaciją (versiją v1.0) taip, kad vietoje Jūsų sukurtos Studentas (StudentoInfo) ar dar kitaip pavadintos Studentų structūros jos pagrindu sukurkite class'ę.
 
 
-# Programos veikimas: 
+### Programos veikimas: 
 1. Paleidus programą, vartotojui pateikiami pasirinkimai: 1 - Jei norite generuoti failus 2 - Jei norite nuskaityti iš failo 3 - Jei norite vesti duomenis 4 - Jei norite išeiti
 2. Pasirinkus 1: Vartotojui sugeneruojami 5 failai su skirtingais studentų skaičiais: 1 000, 10 000, 100 000, 1 000 000, 10 000 000. Taip pat pateikiamas laikas, per kurį studentų failai buvo sukurti, nuskaityti, surūšiuoti ir išvesti į  failus.
 3. Pasirinkus 2: paklausiama iš kurio iš 4-ių failų norima nuskaityti. Apskaičiavus rezultatus vartotojo paklausiama kaip jis norėtų rūšiuoti duomenis: vardas, pavardė, galutinis pagal vidurkį arba galutinis pagal medianą. 
