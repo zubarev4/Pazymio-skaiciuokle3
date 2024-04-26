@@ -6,29 +6,48 @@
 #include "vektoriai.h"
 using namespace std;
 
-class Student {
-private:
+class Zmogus {
+protected:
     string firstName;
     string lastName;
+
+    Zmogus() = default;
+    Zmogus(const string& fName, const string& lName) : firstName(fName), lastName(lName) {}
+    virtual void ppp() const = 0;
+    
+public:
+    virtual ~Zmogus() {}
+    string getFirstName() const { return firstName; }
+    string getLastName() const { return lastName; }
+    void setFirstName(const string& fName) { firstName = fName; }
+    void setLastName(const string& lName) { lastName = lName; }
+};
+
+class Student : public Zmogus {
+private:
     vector<int> grades;
     int finalExamGrade;
     double median, average;
     double fin_median, fin_average, finalGrade;
 
 public:
+    void ppp() const override {}
     Student() : finalExamGrade(0), median(0.0), average(0.0), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
-    Student(const string& fName, const string& lName) : firstName(fName), lastName(lName), finalExamGrade(0), median(0.0), average(0.0), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
+    Student(const string& fName, const string& lName) : Zmogus(fName,lName), finalExamGrade(0), median(0.0), average(0.0), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
 
    // Destructor
-    ~Student() {}
+    ~Student() { grades.clear(); firstName.clear(), lastName.clear(); }
 
     // Copy Constructor
     Student(const Student& other)
-    : firstName(other.firstName), lastName(other.lastName), grades(other.grades), finalExamGrade(other.finalExamGrade), median(other.median), average(other.average), fin_median(other.fin_median), fin_average(other.fin_average), finalGrade(other.finalGrade) {}
+    : Zmogus(other.firstName, other.lastName), grades(other.grades), finalExamGrade(other.finalExamGrade), median(other.median), average(other.average), fin_median(other.fin_median), fin_average(other.fin_average), finalGrade(other.finalGrade) {}
 
     // Move Constructor
     Student(Student&& other) noexcept
-    : firstName(std::move(other.firstName)), lastName(std::move(other.lastName)), grades(std::move(other.grades)), finalExamGrade(std::move(other.finalExamGrade)), median(std::move(other.median)), average(std::move(other.average)), fin_median(std::move(other.fin_median)), fin_average(std::move(other.fin_average)), finalGrade(std::move(other.finalGrade)) {}
+    : Zmogus(move(other.firstName), move(other.lastName)), grades(move(other.grades)), finalExamGrade(move(other.finalExamGrade)), median(move(other.median)), average(move(other.average)), fin_median(move(other.fin_median)), fin_average(move(other.fin_average)), finalGrade(move(other.finalGrade)) {
+    other.firstName.clear();
+    other.lastName.clear();
+    }
 
     // Copy Assignment Operator
     Student& operator=(const Student& other) {
@@ -58,12 +77,15 @@ public:
             fin_median = std::move(other.fin_median);
             fin_average = std::move(other.fin_average);
             finalGrade = std::move(other.finalGrade);
+        
+        other.firstName.clear();
+        other.lastName.clear();
         }
         return *this;
     }
 
     // Input Operator
-friend std::istream& operator>>(std::istream& i, Student& student) {
+friend std::istream& operator>>(istream& i, Student& student) {
     string firstName, lastName;
     i >> firstName >> lastName;
     student.setFirstName(firstName); 
@@ -76,6 +98,7 @@ friend std::istream& operator>>(std::istream& i, Student& student) {
         grades.push_back(grade);
     }
     student.setGrades(grades);
+
     i >> student.finalExamGrade;
 
     // final average
@@ -87,7 +110,7 @@ friend std::istream& operator>>(std::istream& i, Student& student) {
     double finalAverage = average * 0.4 + student.finalExamGrade * 0.6;
     student.setFinalAverage(finalAverage);
 
-    //  final median
+    // final median
     sort(grades.begin(), grades.end());
     double finalMedian;
     if (grades.size() % 2 == 0) {
@@ -102,8 +125,9 @@ friend std::istream& operator>>(std::istream& i, Student& student) {
 }
 
 
+
 // Output Operator
-friend std::ostream& operator<<(std::ostream& os, const Student& student) {
+friend ostream& operator<<(ostream& os, const Student& student) {
     os << setw(10) << student.firstName << setw(20) << student.lastName; 
     os << fixed << setw(25) << setprecision(2) << student.fin_average; 
     os << fixed << setw(25) << setprecision(2) << student.fin_median << '\n'; 
@@ -111,8 +135,7 @@ friend std::ostream& operator<<(std::ostream& os, const Student& student) {
 }
 
 
-    string getFirstName() const { return firstName; }
-    string getLastName() const { return lastName; }
+
     const vector<int>& getGrades() const { return grades; }
     int getFinalExamGrade() const { return finalExamGrade; }
     double getMedian() const { return median; }
@@ -122,8 +145,6 @@ friend std::ostream& operator<<(std::ostream& os, const Student& student) {
     double getFinalGrade() const { return finalGrade; }
 
     
-    void setFirstName(const string& fName) { firstName = fName; }
-    void setLastName(const string& lName) { lastName = lName; }
     void setGrades(const vector<int>& newGrades) { grades = newGrades; }
     void setFinalExamGrade(int examGrade) { finalExamGrade = examGrade; }
     void setMedian(double medianValue) { median = medianValue; }
