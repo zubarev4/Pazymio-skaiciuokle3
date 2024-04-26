@@ -21,10 +21,13 @@ protected:
 
     Zmogus() = default;
     Zmogus(const string& fName, const string& lName) : firstName(fName), lastName(lName) {}
-    virtual ~Zmogus() {}
+    virtual void ppp() const = 0;
+    
 public:
+    virtual ~Zmogus() {}
     string getFirstName() const { return firstName; }
     string getLastName() const { return lastName; }
+    
     void setFirstName(const string& fName) { firstName = fName; }
     void setLastName(const string& lName) { lastName = lName; }
 };
@@ -37,6 +40,7 @@ private:
     double fin_median, fin_average, finalGrade;
 
 public:
+    void ppp() const override {}
     Student() : finalExamGrade(0), median(0.0), average(0.0), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
     Student(const string& fName, const string& lName) : Zmogus(fName,lName), finalExamGrade(0), median(0.0), average(0.0), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
 
@@ -58,7 +62,8 @@ public:
 ### Realizuota abstrakti klasė Zmogus, jos objektų kūrimas negalimas
 <img src="https://github.com/zubarev4/Pazymio-skaiciuokle2/assets/147638474/9c299221-acdd-4d76-a62d-7a2eb7555786" alt="image" style="max-width:100px; width:50%; height:auto;">
 
-_Zmogus::Zmogus() (declared at line 14 of "C:\ISI\1k\2s\Objektinis programavimas\v1.5\student.h") is inaccessible_
+_object of abstract class type "Zmogus" is not allowed:_
+_function "Zmogus::ppp" is a pure virtual function_
 
 ### Studento klasė išvestinė (derived) iš Žmogaus ir palaiko 1.2 versijoje realizuotą penkių metodų taisyklę. Visi realizuoti metodai Studento klasėje pilnai patikrinti (Visi konstruktoriai, kopijavimo, perkėlimo (move) metodai, destruktorius ir įvesties/išvesties metodai
 <img src="https://github.com/zubarev4/Pazymio-skaiciuokle2/assets/147638474/73745f86-e7d6-4474-b6fc-e02ffb08ae5d" alt="image" style="max-width:80px; width:40%; height:auto;">
