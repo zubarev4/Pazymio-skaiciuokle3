@@ -2,7 +2,6 @@
 #include "student.h"
 
 void writeCategorizedStudents(const vector<Student>& students, const string& filename) { 
-    auto start = chrono::high_resolution_clock::now(); 
     ofstream outputFile(filename);
    
     if (!outputFile.is_open()) {
@@ -18,10 +17,6 @@ void writeCategorizedStudents(const vector<Student>& students, const string& fil
     }
 
     outputFile.close();
-    auto stop = chrono::high_resolution_clock::now(); 
-    chrono::duration<double> time = stop - start;
-    //cout << "Surūšiotus studentus rasite: " << filename << endl;
-    cout << "Studentų išvedimo į " << filename << " laikas: " << time.count() << " sekundės " << endl;
 }
 
 void generateFiles() {
@@ -36,28 +31,28 @@ void generateFiles() {
             cerr << "Neišeina sukurti: " << filename << endl;
             continue;
         }
-
-        outputFile << left << setw(25) << "Vardas" << setw(25) << "Pavarde";
+        stringstream ss;
+        ss << left << setw(25) << "Vardas" << setw(25) << "Pavarde";
         for (int i = 1; i <= 15; ++i) {
-            outputFile << left << setw(10) << "ND" + to_string(i);
+            ss << left << setw(10) << "ND" + to_string(i);
         }
-        outputFile << left << setw(10) << "Egz." << endl;
+        ss << left << setw(10) << "Egz." << endl;
 
         for (int i = 1; i <= numRecords; ++i) {
             Student student;
             student.setFirstName("Vardas" + to_string(i));
             student.setLastName("Pavarde" + to_string(i));
-            outputFile << left << setw(25) << student.getFirstName() << setw(25) << student.getLastName();
+            ss << left << setw(25) << student.getFirstName() << setw(25) << student.getLastName();
         
             for (int j = 1; j <= 15; ++j) {
                 int grade = rand() % 10 + 1; 
-                outputFile << left << setw(10) << grade;
+                ss << left << setw(10) << grade;
             }
 
             int finalExamGrade = rand() % 10 + 1; 
-            outputFile << left << setw(10) << finalExamGrade << endl;
+            ss << left << setw(10) << finalExamGrade << endl;
         }
-
+        outputFile << ss.str();
         outputFile.close();
         auto stop = chrono::high_resolution_clock::now(); 
         chrono::duration<double> time = stop - start;
@@ -100,40 +95,30 @@ void sortAndWriteToFile(const string& inputFilename) {
         return false;
     });
     students.erase(partitionPoint, students.end()); 
+    auto stop = chrono::high_resolution_clock::now();
+    chrono::duration<double> time = stop - start;
 
+    cout << "Studentų skirstymas " << inputFilename << " į kietekus ir vargšiukus laikas: " << time.count() << " sekundės " << endl;
+    cout << endl;
 
-auto stop = chrono::high_resolution_clock::now();
-chrono::duration<double> time = stop - start;
-cout << "Studentų skirstymas " << inputFilename << " į kietekus ir vargšiukus pagal 2 strategiją laikas: " << time.count() << " sekundės " << endl;
-cout << endl;
-
-writeCategorizedStudents(vargsiukai, "vargsiukai_" + inputFilename);
+    auto start3 = chrono::high_resolution_clock::now(); 
+    
+    writeCategorizedStudents(vargsiukai, "vargsiukai_" + inputFilename);
+    writeCategorizedStudents(students, "kietiakai_" + inputFilename);
+    
+    auto stop3 = chrono::high_resolution_clock::now(); 
+    chrono::duration<double> duration3 = stop3 - start3;    
+    cout << "Studentų išvedimo į vargšiukus ir kietekus laikas: "  << duration3.count() << " sekundės " << endl;
 }
 
 void generatingFinal() {
-    cout << "1 - Generuoti failus" << endl;
-    string choice;
-
-    cin >> choice;
-
-    if (choice == "1") {
         auto start = chrono::high_resolution_clock::now(); 
         generateFiles();
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        sortAndWriteToFile("1000.txt");
-        sortAndWriteToFile("10000.txt");
-        sortAndWriteToFile("100000.txt");
-        sortAndWriteToFile("1000000.txt");
-        sortAndWriteToFile("10000000.txt");
-        auto stop = chrono::high_resolution_clock::now(); // Stop measuring time
+        auto stop = chrono::high_resolution_clock::now(); 
         auto duration = chrono::duration_cast<chrono::seconds>(stop - start);
         cout << endl;
         cout << "Generuoti failus veiksmo veikimo laikas : " << duration.count() << " sekundės " << endl;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return;
-    } else {
-        cout << "Neteisinga įvestis." << endl;
-         exit(EXIT_FAILURE);
-    }
 }
 

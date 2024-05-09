@@ -7,8 +7,8 @@ int main() {
     int numStudents = 0;
     vector<Student> students;
     string input, grade, finalExamGrade, choice, option, line, filename;
-
-    cout << "0 - Tikrinti Rule of Five ir I&O \n" << "1 - Jei norite generuoti failus \n" << "2 - Jei norite nuskaityti iš failo \n" << "3 - Jei norite vesti duomenis \n" << "4 - Jei norite išeiti \n";;
+   
+    cout << "0 - Tikrinti Rule of Five \n" << "1 - Jei norite generuoti failus \n" << "2 - Jei norite nuskaityti iš failo \n" << "3 - Jei norite vesti duomenis \n" << "4 - Jei norite išeiti \n";;
     cin >> option; 
 
 switch (option [0]){
@@ -20,59 +20,38 @@ switch (option [0]){
         exit(EXIT_FAILURE);
     case '2' :
     cout << "Iš kurio failo norite nuskaityti?" << endl;
-    cout << "1 - studentai10000.txt" << endl;
-    cout << "2 - studentai100000.txt" << endl;
-    cout << "3 - studentai1000000.txt" << endl;
-    cout << "4 - kursiokai.txt" << endl;
+    cout << "1 - 1000.txt" << endl;
+    cout << "2 - 10000.txt" << endl;
+    cout << "3 - 100000.txt" << endl;
+    cout << "4 - 1000000.txt" << endl;
+    cout << "5 - 10000000.txt" << endl;
+
     char fileOption;
     cin >> fileOption;
 
     switch (fileOption) {
         case '1':
-            filename = "studentai10000.txt";
+           sortAndWriteToFile("1000.txt");
             break;
         case '2':
-            filename = "studentai100000.txt";
+           sortAndWriteToFile("10000.txt");
             break;
         case '3':
-            filename = "studentai1000000.txt";
+             sortAndWriteToFile("100000.txt");
             break;
         case '4':
-            filename = "kursiokai.txt";
+            sortAndWriteToFile("1000000.txt");
             break;
+        case '5':
+            sortAndWriteToFile("10000000.txt");
+            break;
+
         default:
-            cout << "Neteisinga įvestis. Turite įrašyti 1/2/3/4." << endl;
+            cout << "Neteisinga įvestis. Turite įrašyti 1/2/3/4/5." << endl;
             return 1;
     }
-
-    readFromFile(filename, students);
-
-    cout << "Kaip norėtumėte surikiuoti rezultatus?" << endl;
-    cout << "1 - Pagal vardą ir pavardę" << endl;
-    cout << "2 - Pagal vidurkį (nuo didžiausio)" << endl;
-    cout << "3 - Pagal medianą (nuo didžiausios)" << endl;
-    char sortingOption;
-    cin >> sortingOption;
-
-   
-    sortStudents(students, sortingOption);
-
-    cout << "Kaip norėtumėte išvesti rezultatus?" << endl;
-    cout << "1 - Į ekraną" << endl;
-    cout << "2 - Į failą 'results.txt'" << endl;
-    cin >> fileOption;
-
-    if (fileOption == '2') {
-        printResults(students, sortingOption, "results.txt");
-    } else if (fileOption == '1'){
-        printResults(students, sortingOption, "");
-    }
-    else {
-        cout << "Neteisinga įvestis. Turite įrašyti 1 arba 2" << endl;
-        exit(EXIT_FAILURE);
-    }
             break;
-
+            
     case '3' :
         try{
             while (true) {
@@ -255,10 +234,10 @@ switch (option [0]){
                 cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
                 cout <<"--------------------------------------------------------------------------------------------\n";
                 for (const auto& student : students) {
-                    cout << fixed << setw(10) << student.getFirstName() << setw(20) << student.getLastName();
-                    cout << fixed << setw(20) << setprecision(2)<< student.getAverage()*0.4+student.getFinalExamGrade() * 0.6;
-                    cout << fixed << setw(25) << setprecision(2)<< student.getMedian()*0.4+student.getFinalExamGrade() * 0.6<< '\n';
+                cout << student; //  output operator 
                 }
+            
+                cout << "Išvesties operatorius veikia. \n " << endl;
 
                  } catch (const exception& e) {
                     cerr << "Klaida: " << e.what() << endl;

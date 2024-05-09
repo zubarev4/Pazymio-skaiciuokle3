@@ -19,6 +19,7 @@ public:
     virtual ~Zmogus() {}
     string getFirstName() const { return firstName; }
     string getLastName() const { return lastName; }
+    
     void setFirstName(const string& fName) { firstName = fName; }
     void setLastName(const string& lName) { lastName = lName; }
 };
@@ -33,7 +34,8 @@ private:
 public:
     void ppp() const override {}
     Student() : finalExamGrade(0), median(0.0), average(0.0), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
-    Student(const string& fName, const string& lName) : Zmogus(fName,lName), finalExamGrade(0), median(0.0), average(0.0), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
+    Student(const string& fName, const string& lName, const vector<int>& grades, int finalExamGrade, double median, double average)
+     : Zmogus(fName,lName), grades(grades), finalExamGrade(finalExamGrade), median(median), average(average), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
 
    // Destructor
     ~Student() { grades.clear(); firstName.clear(), lastName.clear(); }
@@ -44,16 +46,24 @@ public:
 
     // Move Constructor
     Student(Student&& other) noexcept
-    : Zmogus(move(other.firstName), move(other.lastName)), grades(move(other.grades)), finalExamGrade(move(other.finalExamGrade)), median(move(other.median)), average(move(other.average)), fin_median(move(other.fin_median)), fin_average(move(other.fin_average)), finalGrade(move(other.finalGrade)) {
-    other.firstName.clear();
-    other.lastName.clear();
+    : Zmogus(move(other.firstName),
+      move(other.lastName)),
+      grades(std::move(other.grades)),
+      finalExamGrade(std::move(other.finalExamGrade)),
+      median(std::move(other.median)),
+      average(std::move(other.average)),
+      fin_median(std::move(other.fin_median)),
+      fin_average(std::move(other.fin_average)),
+      finalGrade(std::move(other.finalGrade)) {
+   
+    other.ClearEverything();
     }
 
     // Copy Assignment Operator
     Student& operator=(const Student& other) {
         if (this != &other) { // self-assignment check
-            firstName = other.firstName;
-            lastName = other.lastName;
+        Zmogus::setFirstName(other.getFirstName());
+        Zmogus::setLastName(other.getLastName());
             grades = other.grades;
             finalExamGrade = other.finalExamGrade;
             median = other.median;
@@ -68,8 +78,8 @@ public:
     // Move Assignment Operator
     Student& operator=(Student&& other) noexcept {
         if (this != &other) { 
-            firstName = std::move(other.firstName);
-            lastName = std::move(other.lastName);
+        Zmogus::setFirstName(move(other.getFirstName()));
+        Zmogus::setLastName(move(other.getLastName()));
             grades = std::move(other.grades);
             finalExamGrade = std::move(other.finalExamGrade);
             median = std::move(other.median);
@@ -77,9 +87,6 @@ public:
             fin_median = std::move(other.fin_median);
             fin_average = std::move(other.fin_average);
             finalGrade = std::move(other.finalGrade);
-        
-        other.firstName.clear();
-        other.lastName.clear();
         }
         return *this;
     }
@@ -127,14 +134,26 @@ friend std::istream& operator>>(istream& i, Student& student) {
 
 
 // Output Operator
-friend ostream& operator<<(ostream& os, const Student& student) {
-    os << setw(10) << student.firstName << setw(20) << student.lastName; 
-    os << fixed << setw(25) << setprecision(2) << student.fin_average; 
-    os << fixed << setw(25) << setprecision(2) << student.fin_median << '\n'; 
+friend std::ostream& operator<<(std::ostream& os, const Student& student) {
+    os << setw(10) << student.getFirstName() << setw(20) << student.getLastName(); 
+    double average = student.getAverage() * 0.4 + student.getFinalExamGrade() * 0.6;
+    double median = student.getMedian() * 0.4 + student.getFinalExamGrade() * 0.6;
+    os << fixed << setw(25) << setprecision(2) << average; 
+    os << fixed << setw(25) << setprecision(2) << median << '\n'; 
     return os;
 }
 
-
+void ClearEverything() {
+    firstName.clear();
+    lastName.clear();
+    grades.clear();
+    finalExamGrade = 0;
+    median = 0.0;
+    average = 0.0;
+    fin_median = 0.0;
+    fin_average = 0.0;
+    finalGrade = 0.0;
+}
 
     const vector<int>& getGrades() const { return grades; }
     int getFinalExamGrade() const { return finalExamGrade; }
