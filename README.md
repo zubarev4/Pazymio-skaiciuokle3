@@ -29,5 +29,5 @@
 - Studento klasė išvestinė (derived) iš Žmogaus ir palaiko 1.2 versijoje realizuotą penkių metodų taisyklę. Visi realizuoti metodai Studento klasėje pilnai patikrinti (Visi konstruktoriai, kopijavimo, perkėlimo (move) metodai, destruktorius ir įvesties/išvesties metodai.
 
 ## v2.0
-- Realizuoti ir demonstruojami unit test testai su savo klasė. https://www.jetbrains.com/clion/download/#section=windows 
+- Realizuoti ir demonstruojami unit test testai su savo klasė. https://github.com/catchorg/Catch2/releases/tag/v3.6.0
 - Pateikta klasė, aprašanti dokumentacija HTML/TEX formatais. - https://www.doxygen.nl/manual/index.html
