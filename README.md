@@ -23,19 +23,19 @@
 
 |                       | Struct                        | Class                         |
 |-----------------------|-------------------------------|-------------------------------|
-| Skaitymas iš failo =  | 3.72s                         | 4.1895s                       |
-| Studentų rūšiavimas = | 0.3307s                       | 0.2467s                       | 
-| Studentų skirstymas = | 0.8901s                       | 0.69167s                       | 
-| Visos programos veikimo laikas = | 174s                       | 168s                       | 
+| Skaitymas iš failo =  | 4.72s                         | 5.43143s                       |
+| Studentų rūšiavimas = | 0.3307s                       | 1.80046s                       | 
+| Studentų skirstymas = | 0.8901s                       | 2.01125s                       | 
+| Visos programos veikimo laikas = | 5.9471s                       | 9.243s                       | 
 
                                                  10000000 Studentų
 
 |                       | Struct                        | Class                         |
 |-----------------------|-------------------------------|-------------------------------|
-| Skaitymas iš failo =  | 39.046s                       | 40.077s                      | 
-| Studentų rūšiavimas = | 3.6826s                       | 2.9432s                      |
-| Studentų skirstymas = | 9.9272s                       | 6.2989s                       |
-| Visos programos veikimo laikas = | 174s                       | 168s                       | 
+| Skaitymas iš failo =  | 10.0641s                       | 46.0491s                      | 
+| Studentų rūšiavimas = | 1.10318s                       | 21.2713s                      |
+| Studentų skirstymas = | 1.91224s                       | 22.9681s                       |
+| Visos programos veikimo laikas = | 13.07952s                       | 90.33s                       | 
 
 ### Flagai
 
@@ -44,17 +44,17 @@ Tyrimai atlikti su 10000000 failu.
                                Class
 |                       | -O1                        | -O2                          | -O3                         |
 |-----------------------|-------------------------------|-------------------------------|-------------------------------|
-| Skaitymas iš failo =  | 43.8272s                         | 41.6687s                       | 41.7454s                       |
-| Studentų rūšiavimas = | 3.41802s                       | 5.57437s                       | 2.92606s                       |
-| Studentų skirstymas = | 7.04712s                       | 9.11836s                       | 6.30334s                       |
-| Visos programos veikimo laikas = | 168s                       | 197s                       | 227s                       |
-| .exe dydis = | 142 KB                       | 140 KB                       | 179 KB       |
+| Skaitymas iš failo =  | 45.2827s                         | 46.0491s                       | 45.1367s                       |
+| Studentų rūšiavimas = | 22.1974s                       | 21.2713s                       | 21.3836s                       |
+| Studentų skirstymas = | 23.9054s                       | 22.9681s                       | 23.1262s                       |
+| Visos programos veikimo laikas = | 91s                       | 90.33s                       | 92s                       |
+| .exe dydis = | 117 KB                       | 118 KB                       | 129 KB       |
 
                                Struct
 |                       | -O1                        | -O2                          | -O3                         |
 |-----------------------|-------------------------------|-------------------------------|-------------------------------|
-| Skaitymas iš failo =  | 26.6503s                         | 29.0225s                       | 28.0112s                       |
-| Studentų rūšiavimas = | 2.9477s                       | 3.5303s                       | 3.13828s                       |
-| Studentų skirstymas = | 6.46039s                       | 7.46403s                       | 6.93389s                       |
-| Visos programos veikimo laikas = | 193s                       | 201s                       | 197s                       |
-| .exe dydis = | 142 KB                       | 140 KB                       | 159 KB       |
+| Skaitymas iš failo =  | 11.6503s                         | 10.0641s                       | 10.0112s                       |
+| Studentų rūšiavimas = | 2.9477s                       | 1.10318s                       | 3.13828s                       |
+| Studentų skirstymas = | 6.46039s                       | 1.91224s                       | 6.93389s                       |
+| Visos programos veikimo laikas = | 19.56s                       | 13.07952s                       | 19.025s                       |
+| .exe dydis = | 112 KB                       | 120 KB                       | 129 KB       |
