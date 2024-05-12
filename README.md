@@ -20,16 +20,24 @@ Student(const Student& other)
     : firstName(other.firstName), lastName(other.lastName), grades(other.grades), finalExamGrade(other.finalExamGrade), median(other.median), average(other.average), fin_median(other.fin_median), fin_average(other.fin_average), finalGrade(other.finalGrade) {}
 
  // Test copy constructor in tests() located in vektoriai.cpp
-    Student s3 = s2;
-    assert(s3.getFirstName() == "Alice");
-    assert(s3.getLastName() == "Brown");
-    assert(s3.getGrades().empty());
-    assert(s3.getFinalExamGrade() == 0);
-    assert(s3.getMedian() == 0.0);
-    assert(s3.getAverage() == 0.0);
-    assert(s3.getFinalMedian() == 0.0);
-    assert(s3.getFinalAverage() == 0.0);
-    assert(s3.getFinalGrade() == 0.0);
+     {
+    vector<int> grades = {10, 9, 8};
+    string firstName = "V";
+    string lastName = "P";
+    int finalExamGrade = 7;
+    double median = 9.5;
+    double average = 9.0;
+
+    Student student2(firstName, lastName, grades, finalExamGrade, median, average);
+    Student student3(student2);
+
+    assert(student2.getGrades() == student3.getGrades() && "Copy constructor Klaida: Grades");
+    assert(student2.getFirstName() == student3.getFirstName() && "Copy constructor Klaida: First name");
+    assert(student2.getLastName() == student3.getLastName() && "Copy constructor Klaida: Last name");
+    assert(student2.getFinalExamGrade() == student3.getFinalExamGrade() && "Copy constructor Klaida: Final exam grade");
+    assert(student2.getAverage() == student3.getAverage() && "Copy constructor Klaida: Average");
+    assert(student2.getMedian() == student3.getMedian() && "Copy constructor Klaida: Median");
+}
 ```
   
 - copy assignment operator,
@@ -55,25 +63,24 @@ Student(Student&& other) noexcept
     : firstName(std::move(other.firstName)), lastName(std::move(other.lastName)), grades(std::move(other.grades)), finalExamGrade(std::move(other.finalExamGrade)), median(std::move(other.median)), average(std::move(other.average)), fin_median(std::move(other.fin_median)), fin_average(std::move(other.fin_average)), finalGrade(std::move(other.finalGrade)) {}
 
 // Test move constructor in tests() located in vektoriai.cpp
-    Student s4 = std::move(s3);
-    assert(s4.getFirstName() == "Alice");
-    assert(s4.getLastName() == "Brown");
-    assert(s4.getGrades().empty());
-    assert(s4.getFinalExamGrade() == 0);
-    assert(s4.getMedian() == 0.0);
-    assert(s4.getAverage() == 0.0);
-    assert(s4.getFinalMedian() == 0.0);
-    assert(s4.getFinalAverage() == 0.0);
-    assert(s4.getFinalGrade() == 0.0);
-    assert(s3.getFirstName() == "");
-    assert(s3.getLastName() == "");
-    assert(s3.getGrades().empty());
-    assert(s3.getFinalExamGrade() == 0);
-    assert(s3.getMedian() == 0.0);
-    assert(s3.getAverage() == 0.0);
-    assert(s3.getFinalMedian() == 0.0);
-    assert(s3.getFinalAverage() == 0.0);
-    assert(s3.getFinalGrade() == 0.0);
+    {
+    vector<int> grades = {10, 9, 8};
+    string firstName = "V";
+    string lastName = "P";
+    int finalExamGrade = 7;
+    double median = 9.5;
+    double average = 9.0;
+
+        Student student2(firstName, lastName, grades, finalExamGrade, median, average);
+        Student student3(std::move(student2));
+
+        assert(student2.getFirstName().empty() && "Move constructor Klaida: First name");
+        assert(student2.getLastName().empty() && "Move constructor Klaida: Last name");
+        assert(student2.getGrades().empty() && "Move constructor Klaida: Grades");
+        assert(student2.getFinalExamGrade() == 0 && "Move constructor Klaida: Final exam grade");
+        assert(student2.getAverage() == 0 && "Move constructor Klaida: Average");
+        assert(student2.getMedian() == 0 && "Move constructor Klaida: Median");
+    }
 ```
 
 - move assignment operator,
