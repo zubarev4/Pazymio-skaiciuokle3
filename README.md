@@ -1,5 +1,5 @@
-# Antra užduotis: 
-- Pratęskite (tuo pačiu ir patobulinkite) 1-osios užduoties Jūsų turimą programos realizaciją (versiją v1.0) taip, kad vietoje Jūsų sukurtos Studentas (StudentoInfo) ar dar kitaip pavadintos Studentų structūros jos pagrindu sukurkite class'ę.
+# Trečia užduotis: 
+- Šiame darbe (naudodamiesi paskaitos skaidrėmis, literatūra ir interneto šaltiniais) išplėskite mūsų kuriamos Vector klases funkcionalumą taip, kad ji būtų pilnavertė alternatyvą std::vector konteineriui, t.y. Jūsų klasė turi turėti visą funkcionalumą (Member types, Member functions, Non-member functions). Pratęskite (tuo pačiu ir patobulinkite) 1.5-os versijos Jūsų turimą programos realizaciją (versiją v3.0). Programą patobulinkite ir panaudokite savo sukurtą Vector klasę. Ištirkite savo programos veikimą su savo klasę Vector ir palyginkite rezultatus gautus su 1.5 versiją. Patobulinkite galutinį variantą taip, kad Jūsų programa butu įdiegiama naudojant jos įdiegimo failą. Be to rezultate naudotojui lengvai galima būtu ją pašalinti iš savo kompiuterio ją iš diegiant iš programų sąrašo.
 
   
 # Programos veikimas: 
@@ -14,15 +14,11 @@
 9. Pasirinkus vartotojui yra atspausdinamas sąrašas su visais studentais ir jų galutiniais vidurkiais ir medianomis.
 
 ### Naujos repozitorijos sukūrimas
-- git clone --mirror https://github.com/zubarev4/Pazymio-skaiciuokle1.git
-- git clone --bare C:\Users\Pazymio-skaiciuokle1.git Pazymio-skaiciuokle2
-- git branch -a
-- git remote set-url origin https://github.com/zubarev4/Pazymio-skaiciuokle2.git
+- git clone --mirror https://github.com/zubarev4/Pazymio-skaiciuokle2.git
+- cd Pazymio-skaiciuokle2.git
+- git remote set-url origin https://github.com/zubarev4/Pazymio-skaiciuokle3.git
 - git push --mirror
 
 ### Instaliavimo instrukcija
-- Jeigu naudojate „Visual Studio Code“, rekomenduojama įdiegti šiuos išplėtinius: "C/C++ Extension Pack", "C/C++ Runner", "Code Runner".
-- Taip pat parsisiuskite https://www.msys2.org/ ir nusistatykite bin folderį į PATH per environmental variables.
-- Meniu juostos pasirinkite "Terminal“ -> "Select Default Profile“. Šiame lange turėtumete rasti bash(MSYS2) C:\msys64\usr\bin\bash.exe. Naudodami cd komandą, pateikite klonuoto saugyklos kelią: cd jūsų/direktorijos/kelias/ Pavyzdžiui, cd /c/ISI/1k/2s/Objektinis\ programavimas/v1.0
-- Norėdami paleisti programą, turite ją sukompiliuoti naudodami „Makefile“ failą, kuris yra saugykloje. Programos terminale rašykite: make ; ./program_pavadinimas
+- 
  
