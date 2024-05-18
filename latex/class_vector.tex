@@ -1,0 +1,148 @@
+\doxysection{Vector\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_vector}{}\label{class_vector}\index{Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector_a0ad615a151c4e8a3793186f0f02ffca5}\label{class_vector_a0ad615a151c4e8a3793186f0f02ffca5} 
+using {\bfseries size\+\_\+type} = size\+\_\+t
+\item 
+\Hypertarget{class_vector_aa0d46e34338185ed330102229ecb4b0e}\label{class_vector_aa0d46e34338185ed330102229ecb4b0e} 
+using {\bfseries value\+\_\+type} = T
+\item 
+\Hypertarget{class_vector_a2469703660944eaf3701646d44db8485}\label{class_vector_a2469703660944eaf3701646d44db8485} 
+using {\bfseries reference} = T\&
+\item 
+\Hypertarget{class_vector_aa39e5e374ab0131fb5498ab74802174f}\label{class_vector_aa39e5e374ab0131fb5498ab74802174f} 
+using {\bfseries const\+\_\+reference} = const T\&
+\item 
+\Hypertarget{class_vector_ac0f3602bfd8099ecf53f9aeb3cb90528}\label{class_vector_ac0f3602bfd8099ecf53f9aeb3cb90528} 
+using {\bfseries iterator} = T\texorpdfstring{$\ast$}{*}
+\item 
+\Hypertarget{class_vector_ab5c7c5bd8876148f2a11fdce1c221776}\label{class_vector_ab5c7c5bd8876148f2a11fdce1c221776} 
+using {\bfseries const\+\_\+iterator} = const T\texorpdfstring{$\ast$}{*}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector_a12f4ef4ad1278a19dd88da6696630821}\label{class_vector_a12f4ef4ad1278a19dd88da6696630821} 
+{\bfseries Vector} (std\+::initializer\+\_\+list$<$ T $>$ il)
+\item 
+\Hypertarget{class_vector_ac3c80bdb9f1bea80cd6402b8dbaa6b9d}\label{class_vector_ac3c80bdb9f1bea80cd6402b8dbaa6b9d} 
+{\bfseries Vector} (size\+\_\+type n)
+\item 
+\Hypertarget{class_vector_a83ed77764ab028ba5f5177a5926effa7}\label{class_vector_a83ed77764ab028ba5f5177a5926effa7} 
+{\bfseries Vector} (const \mbox{\hyperlink{class_vector}{Vector}} \&v)
+\item 
+\Hypertarget{class_vector_a6b9096aea9a96b63fb7ac5e46487efa9}\label{class_vector_a6b9096aea9a96b63fb7ac5e46487efa9} 
+{\bfseries Vector} (\mbox{\hyperlink{class_vector}{Vector}} \&\&v) noexcept
+\item 
+\Hypertarget{class_vector_a2fe37b54a47d28015829196cb5abec05}\label{class_vector_a2fe37b54a47d28015829196cb5abec05} 
+\mbox{\hyperlink{class_vector}{Vector}} \& {\bfseries operator=} (const \mbox{\hyperlink{class_vector}{Vector}} \&other)
+\item 
+\Hypertarget{class_vector_ac7a5d1c7410208d7ce8f13497e31dd87}\label{class_vector_ac7a5d1c7410208d7ce8f13497e31dd87} 
+\mbox{\hyperlink{class_vector}{Vector}} \& {\bfseries operator=} (\mbox{\hyperlink{class_vector}{Vector}} \&\&other) noexcept
+\item 
+\Hypertarget{class_vector_a4cbfa1eb5ea6e80e8fcaff760f7d4424}\label{class_vector_a4cbfa1eb5ea6e80e8fcaff760f7d4424} 
+reference {\bfseries at} (size\+\_\+type n)
+\item 
+\Hypertarget{class_vector_ab9a07631c357f9e846009d0078fe4348}\label{class_vector_ab9a07631c357f9e846009d0078fe4348} 
+const\+\_\+reference {\bfseries at} (size\+\_\+type n) const
+\item 
+\Hypertarget{class_vector_a65cbd2b5b3b33d0d10ec2ee06047286c}\label{class_vector_a65cbd2b5b3b33d0d10ec2ee06047286c} 
+reference {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+type n)
+\item 
+\Hypertarget{class_vector_aa481e20d0337a65066f767ba1fe58b01}\label{class_vector_aa481e20d0337a65066f767ba1fe58b01} 
+const\+\_\+reference {\bfseries operator\mbox{[}$\,$\mbox{]}} (size\+\_\+type n) const
+\item 
+\Hypertarget{class_vector_a2f2e14b2a9a0041c783b5ad44dd59593}\label{class_vector_a2f2e14b2a9a0041c783b5ad44dd59593} 
+reference {\bfseries front} ()
+\item 
+\Hypertarget{class_vector_a78dc531e4c79c33f8e7d4574a155f529}\label{class_vector_a78dc531e4c79c33f8e7d4574a155f529} 
+const\+\_\+reference {\bfseries front} () const
+\item 
+\Hypertarget{class_vector_a8abc3f8273089dadf91fb8eaca0676e6}\label{class_vector_a8abc3f8273089dadf91fb8eaca0676e6} 
+reference {\bfseries back} ()
+\item 
+\Hypertarget{class_vector_a66ecda4d7c3a5d0260451be6f2e30d30}\label{class_vector_a66ecda4d7c3a5d0260451be6f2e30d30} 
+const\+\_\+reference {\bfseries back} () const
+\item 
+\Hypertarget{class_vector_ae153d7d061e5d4c5e8b857bccdc3d92f}\label{class_vector_ae153d7d061e5d4c5e8b857bccdc3d92f} 
+value\+\_\+type \texorpdfstring{$\ast$}{*} {\bfseries data} () noexcept
+\item 
+\Hypertarget{class_vector_a7a0a30580df4155cd793623ee50ddf50}\label{class_vector_a7a0a30580df4155cd793623ee50ddf50} 
+const value\+\_\+type \texorpdfstring{$\ast$}{*} {\bfseries data} () const noexcept
+\item 
+\Hypertarget{class_vector_a43711ecf8c3dce2124d08126b9654aef}\label{class_vector_a43711ecf8c3dce2124d08126b9654aef} 
+iterator {\bfseries begin} () noexcept
+\item 
+\Hypertarget{class_vector_ad3334a615a77391a4fe40252e1fd3975}\label{class_vector_ad3334a615a77391a4fe40252e1fd3975} 
+const\+\_\+iterator {\bfseries begin} () const noexcept
+\item 
+\Hypertarget{class_vector_a4af825d34cd281738bfbb8345a198072}\label{class_vector_a4af825d34cd281738bfbb8345a198072} 
+iterator {\bfseries end} () noexcept
+\item 
+\Hypertarget{class_vector_a065c6c93dbcf049d7d39c3ac2afbb3fc}\label{class_vector_a065c6c93dbcf049d7d39c3ac2afbb3fc} 
+const\+\_\+iterator {\bfseries end} () const noexcept
+\item 
+\Hypertarget{class_vector_a2f639b492129a072de508b75b73fe569}\label{class_vector_a2f639b492129a072de508b75b73fe569} 
+bool {\bfseries empty} () const noexcept
+\item 
+\Hypertarget{class_vector_afe5164a7e80a14c40159346cec19a7b6}\label{class_vector_afe5164a7e80a14c40159346cec19a7b6} 
+size\+\_\+type {\bfseries capacity} () const noexcept
+\item 
+\Hypertarget{class_vector_a820aa7774df7f171db7ced1049adce57}\label{class_vector_a820aa7774df7f171db7ced1049adce57} 
+size\+\_\+type {\bfseries size} () const noexcept
+\item 
+\Hypertarget{class_vector_a0dd08b19542784280ebc1fcbb109db99}\label{class_vector_a0dd08b19542784280ebc1fcbb109db99} 
+size\+\_\+type {\bfseries max\+\_\+size} () const noexcept
+\item 
+\Hypertarget{class_vector_ac769dc5caf435551a9911f1358a7397d}\label{class_vector_ac769dc5caf435551a9911f1358a7397d} 
+void {\bfseries reserve} (size\+\_\+type n)
+\item 
+\Hypertarget{class_vector_ade16f6d123b4fc1f372caac4a0eec16c}\label{class_vector_ade16f6d123b4fc1f372caac4a0eec16c} 
+void {\bfseries resize} (size\+\_\+type sz)
+\item 
+\Hypertarget{class_vector_abd80bbc42c16b6ddcd64dadcf4368c41}\label{class_vector_abd80bbc42c16b6ddcd64dadcf4368c41} 
+void {\bfseries resize} (size\+\_\+type sz, const value\+\_\+type \&value)
+\item 
+\Hypertarget{class_vector_ad6454ce193263b8000d4c18cb0c3a0c8}\label{class_vector_ad6454ce193263b8000d4c18cb0c3a0c8} 
+void {\bfseries shrink\+\_\+to\+\_\+fit} ()
+\item 
+\Hypertarget{class_vector_a3260a3cc75735ddf0fb75820d974a66e}\label{class_vector_a3260a3cc75735ddf0fb75820d974a66e} 
+void {\bfseries clear} () noexcept
+\item 
+\Hypertarget{class_vector_a1d90d496598be4cb8a1b97b64dade3bf}\label{class_vector_a1d90d496598be4cb8a1b97b64dade3bf} 
+void {\bfseries push\+\_\+back} (const value\+\_\+type \&val)
+\item 
+\Hypertarget{class_vector_aa2dd3eeac2c6070bd7cb7378a3784e3f}\label{class_vector_aa2dd3eeac2c6070bd7cb7378a3784e3f} 
+void {\bfseries push\+\_\+back} (value\+\_\+type \&\&val)
+\item 
+\Hypertarget{class_vector_adcba035109febbe55cba2a25f8483ba6}\label{class_vector_adcba035109febbe55cba2a25f8483ba6} 
+void {\bfseries pop\+\_\+back} ()
+\item 
+\Hypertarget{class_vector_ac993dcf27f6c19f7f63b028c2559cb34}\label{class_vector_ac993dcf27f6c19f7f63b028c2559cb34} 
+iterator {\bfseries insert} (iterator position, const value\+\_\+type \&val)
+\item 
+\Hypertarget{class_vector_a4d5f195d64449c872881afe7a2104aad}\label{class_vector_a4d5f195d64449c872881afe7a2104aad} 
+iterator {\bfseries insert} (iterator position, size\+\_\+type n, const value\+\_\+type \&val)
+\item 
+\Hypertarget{class_vector_a65771dd1c5da427eabb9818ba9558113}\label{class_vector_a65771dd1c5da427eabb9818ba9558113} 
+iterator {\bfseries erase} (iterator position)
+\item 
+\Hypertarget{class_vector_afd90059f9dff48f4417b51f6eae8e152}\label{class_vector_afd90059f9dff48f4417b51f6eae8e152} 
+iterator {\bfseries erase} (iterator first, iterator last)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_vector_ac924c389acccba27efb24c1f969ae700}\label{class_vector_ac924c389acccba27efb24c1f969ae700} 
+bool {\bfseries operator==} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$ \&lhs, const \mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$ \&rhs)
+\item 
+\Hypertarget{class_vector_a428cb3edacc31aa1d5acbb40bfc2a606}\label{class_vector_a428cb3edacc31aa1d5acbb40bfc2a606} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$ \&lhs, const \mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$ \&rhs)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sources/vector.\+h\end{DoxyCompactItemize}

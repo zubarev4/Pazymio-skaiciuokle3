@@ -1,0 +1,194 @@
+\doxysection{student.\+h}
+\hypertarget{student_8h_source}{}\label{student_8h_source}\index{sources/student.h@{sources/student.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ STUDENT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ STUDENT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}vektoriai.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}vector.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_zmogus}{Zmogus}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{string}\ firstName;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{string}\ lastName;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_zmogus}{Zmogus}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{class_zmogus}{Zmogus}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ fName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ lName)\ :\ firstName(fName),\ lastName(lName)\ \{\}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ ppp()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00022\ \ \ \ \ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_zmogus}{\string~Zmogus}}()\ \{\}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{string}\ getFirstName()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ firstName;\ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{string}\ getLastName()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ lastName;\ \}}
+\DoxyCodeLine{00027\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ setFirstName(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ fName)\ \{\ firstName\ =\ fName;\ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ setLastName(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ lName)\ \{\ lastName\ =\ lName;\ \}}
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_student}{Student}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_zmogus}{Zmogus}}\ \{}
+\DoxyCodeLine{00033\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_vector}{Vector<int>}}\ grades;}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ finalExamGrade;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ median,\ average;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{double}\ fin\_median,\ fin\_average,\ finalGrade;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ ppp()\textcolor{keyword}{\ const\ override\ }\{\}}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_student}{Student}}()\ :\ finalExamGrade(0),\ median(0.0),\ average(0.0),\ fin\_median(0.0),\ fin\_average(0.0),\ finalGrade(0.0)\ \{\}}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_student}{Student}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ fName,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ lName,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector}{Vector<int>}}\&\ grades,\ \textcolor{keywordtype}{int}\ finalExamGrade,\ \textcolor{keywordtype}{double}\ median,\ \textcolor{keywordtype}{double}\ average)}
+\DoxyCodeLine{00043\ \ \ \ \ \ :\ \mbox{\hyperlink{class_zmogus}{Zmogus}}(fName,lName),\ grades(grades),\ finalExamGrade(finalExamGrade),\ median(median),\ average(average),\ fin\_median(0.0),\ fin\_average(0.0),\ finalGrade(0.0)\ \{\}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \textcolor{comment}{//\ Destructor}}
+\DoxyCodeLine{00046\ \ \ \ \mbox{\hyperlink{class_student}{\string~Student}}()\ \{\ }
+\DoxyCodeLine{00047\ \ \ \ \ grades.clear();\ }
+\DoxyCodeLine{00048\ \ \ \ \ firstName.clear();\ }
+\DoxyCodeLine{00049\ \ \ \ \ lastName.clear();\ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ Copy\ Constructor}}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_student}{Student}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_student}{Student}}\&\ other)}
+\DoxyCodeLine{00054\ \ \ \ \ :\ \mbox{\hyperlink{class_zmogus}{Zmogus}}(other.firstName,\ other.lastName),\ grades(other.grades),\ finalExamGrade(other.finalExamGrade),\ median(other.median),\ average(other.average),\ fin\_median(other.fin\_median),\ fin\_average(other.fin\_average),\ finalGrade(other.finalGrade)\ \{\}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ Move\ Constructor}}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{class_student}{Student}}(\mbox{\hyperlink{class_student}{Student}}\&\&\ other)\ noexcept}
+\DoxyCodeLine{00058\ \ \ \ \ :\ \mbox{\hyperlink{class_zmogus}{Zmogus}}(move(other.firstName),\ move(other.lastName)),}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ grades(move(other.grades)),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ finalExamGrade(move(other.finalExamGrade)),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ median(move(other.median)),}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ average(move(other.average)),}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ fin\_median(move(other.fin\_median)),}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ fin\_average(move(other.fin\_average)),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ finalGrade(move(other.finalGrade))\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ other.finalExamGrade\ =\ 0;}
+\DoxyCodeLine{00068\ \ \ \ \ other.median\ =\ 0;}
+\DoxyCodeLine{00069\ \ \ \ \ other.average\ =\ 0;}
+\DoxyCodeLine{00070\ \ \ \ \ other.fin\_median\ =\ 0;}
+\DoxyCodeLine{00071\ \ \ \ \ other.fin\_average\ =\ 0;}
+\DoxyCodeLine{00072\ \ \ \ \ other.finalGrade\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ other.firstName.clear();}
+\DoxyCodeLine{00074\ \ \ \ \ other.lastName.clear();}
+\DoxyCodeLine{00075\ \ \ \ \ other.grades.clear();}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{//\ Copy\ Assignment\ Operator}}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{class_student}{Student}}\&\ operator=(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_student}{Student}}\&\ other)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&other)\ \{\ \textcolor{comment}{//\ self-\/assignment\ check}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ Zmogus::setFirstName(other.getFirstName());}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ Zmogus::setLastName(other.getLastName());}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ grades\ =\ other.grades;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ finalExamGrade\ =\ other.finalExamGrade;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ median\ =\ other.median;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ average\ =\ other.average;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ fin\_median\ =\ other.fin\_median;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ fin\_average\ =\ other.fin\_average;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ finalGrade\ =\ other.finalGrade;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00092\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{//\ Move\ Assignment\ Operator}}
+\DoxyCodeLine{00095\ \ \ \ \ \mbox{\hyperlink{class_student}{Student}}\&\ operator=(\mbox{\hyperlink{class_student}{Student}}\&\&\ other)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{this}\ !=\ \&other)\ \{\ }
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ Zmogus::setFirstName(move(other.getFirstName()));}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ Zmogus::setLastName(move(other.getLastName()));}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ grades\ =\ std::move(other.grades);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ finalExamGrade\ =\ std::move(other.finalExamGrade);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ median\ =\ std::move(other.median);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ average\ =\ std::move(other.average);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ fin\_median\ =\ std::move(other.fin\_median);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ fin\_average\ =\ std::move(other.fin\_average);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ finalGrade\ =\ std::move(other.finalGrade);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ other.finalExamGrade\ =\ 0;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ other.median\ =\ 0;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ other.average\ =\ 0;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ other.fin\_median\ =\ 0;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ other.fin\_average\ =\ 0;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ other.finalGrade\ =\ 0;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ other.firstName.clear();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ other.lastName.clear();}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ other.grades.clear();}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ Input\ Operator}}
+\DoxyCodeLine{00121\ \textcolor{keyword}{friend}\ std::istream\&\ operator>>(istream\&\ i,\ \mbox{\hyperlink{class_student}{Student}}\&\ student)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{string}\ firstName,\ lastName;}
+\DoxyCodeLine{00123\ \ \ \ \ i\ >>\ firstName\ >>\ lastName;}
+\DoxyCodeLine{00124\ \ \ \ \ student.setFirstName(firstName);\ }
+\DoxyCodeLine{00125\ \ \ \ \ student.setLastName(lastName);}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \mbox{\hyperlink{class_vector}{Vector<int>}}\ grades;}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 15;\ ++j)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ grade;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ i\ >>\ grade;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ grades.push\_back(grade);}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ student.setGrades(grades);}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ i\ >>\ student.finalExamGrade;}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ final\ average}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{double}\ sum\ =\ 0;}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ grade\ :\ grades)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ sum\ +=\ grade;}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{double}\ average\ =\ sum\ /\ grades.size();}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordtype}{double}\ finalAverage\ =\ average\ *\ 0.4\ +\ student.finalExamGrade\ *\ 0.6;}
+\DoxyCodeLine{00144\ \ \ \ \ student.setFinalAverage(finalAverage);}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{comment}{//\ final\ median}}
+\DoxyCodeLine{00147\ \ \ \ \ sort(grades.begin(),\ grades.end());}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordtype}{double}\ finalMedian;}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{if}\ (grades.size()\ \%\ 2\ ==\ 0)\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ finalMedian\ =\ (grades[grades.size()\ /\ 2\ -\/\ 1]\ +\ grades[grades.size()\ /\ 2])\ /\ 2.0;}
+\DoxyCodeLine{00151\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ finalMedian\ =\ grades[grades.size()\ /\ 2];}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ finalMedian\ =\ finalMedian\ *\ 0.4\ +\ student.finalExamGrade\ *\ 0.6;}
+\DoxyCodeLine{00155\ \ \ \ \ student.setFinalMedian(finalMedian);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{return}\ i;}
+\DoxyCodeLine{00158\ \}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{comment}{//\ Output\ Operator}}
+\DoxyCodeLine{00161\ \textcolor{keyword}{friend}\ std::ostream\&\ operator<<(std::ostream\&\ os,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_student}{Student}}\&\ student)\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ os\ <<\ setw(10)\ <<\ student.getFirstName()\ <<\ setw(20)\ <<\ student.getLastName();\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{double}\ average\ =\ student.getAverage()\ *\ 0.4\ +\ student.getFinalExamGrade()\ *\ 0.6;}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{double}\ median\ =\ student.getMedian()\ *\ 0.4\ +\ student.getFinalExamGrade()\ *\ 0.6;}
+\DoxyCodeLine{00165\ \ \ \ \ os\ <<\ fixed\ <<\ setw(25)\ <<\ setprecision(2)\ <<\ average;\ }
+\DoxyCodeLine{00166\ \ \ \ \ os\ <<\ fixed\ <<\ setw(25)\ <<\ setprecision(2)\ <<\ median\ <<\ \textcolor{charliteral}{'\(\backslash\)n'};\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordflow}{return}\ os;}
+\DoxyCodeLine{00168\ \}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector}{Vector<int>}}\&\ getGrades()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ grades;\ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordtype}{int}\ getFinalExamGrade()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ finalExamGrade;\ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordtype}{double}\ getMedian()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ median;\ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordtype}{double}\ getAverage()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ average;\ \}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordtype}{double}\ getFinalMedian()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fin\_median;\ \}}
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{keywordtype}{double}\ getFinalAverage()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ fin\_average;\ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordtype}{double}\ getFinalGrade()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ finalGrade;\ \}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{void}\ setGrades(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector}{Vector<int>}}\&\ newGrades)\ \{\ grades\ =\ newGrades;\ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordtype}{void}\ setFinalExamGrade(\textcolor{keywordtype}{int}\ examGrade)\ \{\ finalExamGrade\ =\ examGrade;\ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{void}\ setMedian(\textcolor{keywordtype}{double}\ medianValue)\ \{\ median\ =\ medianValue;\ \}}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{void}\ setAverage(\textcolor{keywordtype}{double}\ averageValue)\ \{\ average\ =\ averageValue;\ \}}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordtype}{void}\ setFinalMedian(\textcolor{keywordtype}{double}\ finalMedian)\ \{\ fin\_median\ =\ finalMedian;\ \}}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{void}\ setFinalAverage(\textcolor{keywordtype}{double}\ finalAverage)\ \{\ fin\_average\ =\ finalAverage;\ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{void}\ setFinalGrade(\textcolor{keywordtype}{double}\ finalGradeValue)\ \{\ finalGrade\ =\ finalGradeValue;\ \}}
+\DoxyCodeLine{00186\ \};}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
