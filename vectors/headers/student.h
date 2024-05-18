@@ -2,6 +2,7 @@
 #define STUDENT_H
 
 #include "vektoriai.h"
+#include "vector.h"
 
 #include <vector>
 #include <string>
@@ -30,7 +31,7 @@ public:
 
 class Student : public Zmogus {
 private:
-    vector<int> grades;
+    Vector<int> grades;
     int finalExamGrade;
     double median, average;
     double fin_median, fin_average, finalGrade;
@@ -38,7 +39,7 @@ private:
 public:
     void ppp() const override {}
     Student() : finalExamGrade(0), median(0.0), average(0.0), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
-    Student(const string& fName, const string& lName, const vector<int>& grades, int finalExamGrade, double median, double average)
+    Student(const string& fName, const string& lName, const Vector<int>& grades, int finalExamGrade, double median, double average)
      : Zmogus(fName,lName), grades(grades), finalExamGrade(finalExamGrade), median(median), average(average), fin_median(0.0), fin_average(0.0), finalGrade(0.0) {}
 
    // Destructor
@@ -62,7 +63,13 @@ public:
       fin_median(move(other.fin_median)),
       fin_average(move(other.fin_average)),
       finalGrade(move(other.finalGrade)) {
-   
+        
+    other.finalExamGrade = 0;
+    other.median = 0;
+    other.average = 0;
+    other.fin_median = 0;
+    other.fin_average = 0;
+    other.finalGrade = 0;    
     other.firstName.clear();
     other.lastName.clear();
     other.grades.clear();
@@ -85,24 +92,31 @@ public:
     }   
 
     // Move Assignment Operator
-  Student& operator=(Student&& other) noexcept {
-    if (this != &other) {
+    Student& operator=(Student&& other) noexcept {
+        if (this != &other) { 
         Zmogus::setFirstName(move(other.getFirstName()));
         Zmogus::setLastName(move(other.getLastName()));
-        grades = move(other.grades);
-        finalExamGrade = move(other.finalExamGrade);
-        median = move(other.median);
-        average = move(other.average);
-        fin_median = move(other.fin_median);
-        fin_average = move(other.fin_average);
-        finalGrade = move(other.finalGrade);
-        other.firstName.clear();
-        other.lastName.clear();
-        other.grades.clear();
-    }
-    return *this;
-}
+            grades = std::move(other.grades);
+            finalExamGrade = std::move(other.finalExamGrade);
+            median = std::move(other.median);
+            average = std::move(other.average);
+            fin_median = std::move(other.fin_median);
+            fin_average = std::move(other.fin_average);
+            finalGrade = std::move(other.finalGrade);
 
+            other.finalExamGrade = 0;
+            other.median = 0;
+            other.average = 0;
+            other.fin_median = 0;
+            other.fin_average = 0;
+            other.finalGrade = 0;
+            other.firstName.clear();
+            other.lastName.clear();
+            other.grades.clear();
+
+        }
+        return *this;
+    }
     // Input Operator
 friend std::istream& operator>>(istream& i, Student& student) {
     string firstName, lastName;
@@ -110,7 +124,7 @@ friend std::istream& operator>>(istream& i, Student& student) {
     student.setFirstName(firstName); 
     student.setLastName(lastName);
 
-    vector<int> grades;
+    Vector<int> grades;
     for (int j = 0; j < 15; ++j) {
         int grade;
         i >> grade;
@@ -153,7 +167,7 @@ friend std::ostream& operator<<(std::ostream& os, const Student& student) {
     return os;
 }
 
-    const vector<int>& getGrades() const { return grades; }
+    const Vector<int>& getGrades() const { return grades; }
     int getFinalExamGrade() const { return finalExamGrade; }
     double getMedian() const { return median; }
     double getAverage() const { return average; }
@@ -162,7 +176,7 @@ friend std::ostream& operator<<(std::ostream& os, const Student& student) {
     double getFinalGrade() const { return finalGrade; }
 
     
-    void setGrades(const vector<int>& newGrades) { grades = newGrades; }
+    void setGrades(const Vector<int>& newGrades) { grades = newGrades; }
     void setFinalExamGrade(int examGrade) { finalExamGrade = examGrade; }
     void setMedian(double medianValue) { median = medianValue; }
     void setAverage(double averageValue) { average = averageValue; }
