@@ -1,5 +1,6 @@
-#include "vektoriai.h"
+#include "vector.h"
 #include "student.h"
+#include "vektoriai.h"
 
 bool isValidName(const string& name) {
     if (name.length() < 2) {
@@ -37,7 +38,7 @@ double calculateAverage(const Student& student){
 double calculateMedian(const Student& student) {
     Student temp = student;
 
-    vector<int> grades = temp.getGrades();
+    Vector<int> grades = temp.getGrades();
 
     sort(grades.begin(), grades.end());
 
@@ -54,7 +55,7 @@ double calculateMedian(const Student& student) {
 }
 
 void randomGradeGenerator(int number, Student& student) {
-    student.setGrades(vector<int>());
+    student.setGrades(Vector<int>());
     srand(time(NULL));
     cout << "Namų darbų pažymiai:" << endl;
     for (int i = 0; i < number; i++) {
@@ -62,8 +63,8 @@ void randomGradeGenerator(int number, Student& student) {
         do {
             grade = rand() % 10 + 1; 
         } while (!isValidGrade(to_string(grade))); 
-        vector<int> grades = student.getGrades(); // Get current grades
-        grades.push_back(grade); // Add new grade
+        Vector<int> grades = student.getGrades(); 
+        grades.push_back(grade); 
         student.setGrades(grades);
         cout << student.getGrades().back() << endl;
     }
@@ -72,8 +73,8 @@ void randomGradeGenerator(int number, Student& student) {
 }
 
 void generateNames(Student& student) {
-    vector<string> firstNames = {"John", "Jane", "Michael", "Emily", "David", "Sarah", "James", "Jessica", "Daniel", "Jennifer"};
-    vector<string> lastNames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
+    Vector<string> firstNames = {"John", "Jane", "Michael", "Emily", "David", "Sarah", "James", "Jessica", "Daniel", "Jennifer"};
+    Vector<string> lastNames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
 
     srand(time(NULL));
     random_shuffle(firstNames.begin(), firstNames.end());
@@ -84,7 +85,7 @@ void generateNames(Student& student) {
     cout << "Sugeneruotas vardas ir pavardė: " << student.getFirstName() << " " << student.getLastName()<< endl;
 }
 
-void readFromFile(const string& filename, vector<Student>& students) {
+void readFromFile(const string& filename, Vector<Student>& students) {
  auto start = chrono::high_resolution_clock::now();
  ifstream file(filename);
     try {
@@ -122,118 +123,243 @@ void readFromFile(const string& filename, vector<Student>& students) {
 }
 
 
-
-bool sortByAverage(const Student& studentA, const Student& studentB) {
-    return studentA.getFinalAverage() > studentB.getFinalAverage(); 
-}
-
-bool sortByMedian(const Student& studentA, const Student& studentB) {
-    return studentA.getFinalMedian() > studentB.getFinalMedian(); 
-}
-
-void sortStudents(vector<Student>& students, char option) {
-    auto start = chrono::high_resolution_clock::now(); 
-    auto stop = chrono::high_resolution_clock::now(); 
-    chrono::duration<double> time;
-
-    switch (option) {
-        case '1': {
-            start = chrono::high_resolution_clock::now(); 
-            stop = chrono::high_resolution_clock::now(); 
-            break;
-        }
-        case '2': {
-            start = chrono::high_resolution_clock::now();
-            sort(students.begin(), students.end(), [](const Student& a, const Student& b) { return a.getFinalAverage() > b.getFinalAverage(); });
-            stop = chrono::high_resolution_clock::now();
-            break;
-        }
-        case '3': {
-            start = chrono::high_resolution_clock::now();
-            sort(students.begin(), students.end(), [](const Student& a, const Student& b) { return a.getFinalMedian() > b.getFinalMedian(); });
-            stop = chrono::high_resolution_clock::now();
-            break;
-        }
-        default: {
-            cout << "Neteisinga įvestis. Turite įrašyti 1/2/3. " << endl;
-            exit(EXIT_FAILURE);
-        }
-    }
-    time = stop - start;
-    cout << "Rūšiavimas užtruko " << time.count() << " sekundės " << endl;
-}
-
-
-void printResults(const vector<Student>& students, char sortingOption, const string& outputFilename = "") {
-    if (outputFilename.empty()) {
-        cout << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
-        cout << "--------------------------------------------------------------------------------------------\n";
-        for (const auto& student : students) {
-            cout << student; //  output operator 
-        }
-        cout << "Išvesties operatorius veikia. \n " << endl;
-    } else {
-        ofstream outputFile(outputFilename);
-        if (!outputFile.is_open()) {
-            cout << "Neišejo atidaryti: " << outputFilename << endl;
-            return;
-        }
-        outputFile << fixed << setw(10) << "Vardas" << setw(20) << "Pavardė" << setw(25) << "Galutinis (Vid.)" << setw(25) << "Galutinis (Med.)\n";
-        outputFile << "--------------------------------------------------------------------------------------------\n";
-        for (const auto& student : students) {
-            outputFile << student; // output operator 
-        }
-        outputFile.close();
-        cout << "Išvesties operatorius veikia. \n " << "Rezultatus rasite: " << outputFilename << endl;
-    }
-}
-
-
+// testing rule of five
 void tests() {
-    // Test constructor with parameters
-    Student s2("Alice", "Brown");
-    assert(s2.getFirstName() == "Alice");
-    assert(s2.getLastName() == "Brown");
-    assert(s2.getGrades().empty());
-    assert(s2.getFinalExamGrade() == 0);
-    assert(s2.getMedian() == 0.0);
-    assert(s2.getAverage() == 0.0);
-    assert(s2.getFinalMedian() == 0.0);
-    assert(s2.getFinalAverage() == 0.0);
-    assert(s2.getFinalGrade() == 0.0);
+   // Constructor
+    {
+    Vector<int> grades = {10, 9, 8};
+    string firstName = "V";
+    string lastName = "P";
+    int finalExamGrade = 7;
+    double median = 9.5;
+    double average = 9.0;
 
-    // Test copy constructor
-    Student s3 = s2;
-    assert(s3.getFirstName() == "Alice");
-    assert(s3.getLastName() == "Brown");
-    assert(s3.getGrades().empty());
-    assert(s3.getFinalExamGrade() == 0);
-    assert(s3.getMedian() == 0.0);
-    assert(s3.getAverage() == 0.0);
-    assert(s3.getFinalMedian() == 0.0);
-    assert(s3.getFinalAverage() == 0.0);
-    assert(s3.getFinalGrade() == 0.0);
+    Student student1(firstName, lastName, grades, finalExamGrade, median, average);
 
-    // Test move constructor
-    Student s4 = std::move(s3);
-    assert(s4.getFirstName() == "Alice");
-    assert(s4.getLastName() == "Brown");
-    assert(s4.getGrades().empty());
-    assert(s4.getFinalExamGrade() == 0);
-    assert(s4.getMedian() == 0.0);
-    assert(s4.getAverage() == 0.0);
-    assert(s4.getFinalMedian() == 0.0);
-    assert(s4.getFinalAverage() == 0.0);
-    assert(s4.getFinalGrade() == 0.0);
-    assert(s3.getFirstName() == "");
-    assert(s3.getLastName() == "");
-    assert(s3.getGrades().empty());
-    assert(s3.getFinalExamGrade() == 0);
-    assert(s3.getMedian() == 0.0);
-    assert(s3.getAverage() == 0.0);
-    assert(s3.getFinalMedian() == 0.0);
-    assert(s3.getFinalAverage() == 0.0);
-    assert(s3.getFinalGrade() == 0.0);
+    assert(student1.getGrades() == grades && "Klaida: grades");
+    assert(student1.getFirstName() == firstName && "Klaida: firstName");
+    assert(student1.getLastName() == lastName && "Klaida: lastName");
+    assert(student1.getFinalExamGrade() == finalExamGrade && "Klaida: finalExamGrade");
+    assert(student1.getMedian() == median && "Klaida: median");
+    assert(student1.getAverage() == average && "Klaida: average");
+}
 
-    cout << "Visi testai sekmingi!" << endl;
+    cout << "Parameter constructor :)" << endl;
+
+    // Copy constructor 
+    {
+    Vector<int> grades = {10, 9, 8};
+    string firstName = "V";
+    string lastName = "P";
+    int finalExamGrade = 7;
+    double median = 9.5;
+    double average = 9.0;
+
+    Student student2(firstName, lastName, grades, finalExamGrade, median, average);
+    Student student3(student2);
+
+    assert(student2.getGrades() == student3.getGrades() && "Copy constructor Klaida: Grades");
+    assert(student2.getFirstName() == student3.getFirstName() && "Copy constructor Klaida: First name");
+    assert(student2.getLastName() == student3.getLastName() && "Copy constructor Klaida: Last name");
+    assert(student2.getFinalExamGrade() == student3.getFinalExamGrade() && "Copy constructor Klaida: Final exam grade");
+    assert(student2.getAverage() == student3.getAverage() && "Copy constructor Klaida: Average");
+    assert(student2.getMedian() == student3.getMedian() && "Copy constructor Klaida: Median");
+}
+
+    cout << "Copy constructor :)" << endl;
+
+    // Move constructor
+    {
+    Vector<int> grades = {10, 9, 8};
+    string firstName = "V";
+    string lastName = "P";
+    int finalExamGrade = 7;
+    double median = 9.5;
+    double average = 9.0;
+
+        Student student2(firstName, lastName, grades, finalExamGrade, median, average);
+        Student student3(std::move(student2));
+
+        assert(student3.getFirstName() == firstName && "Move constructor Klaida s3: First name");
+        assert(student3.getLastName() == lastName && "Move constructor Klaida s3: Last name");
+        assert(student3.getGrades() == grades && "Move constructor Klaida s3: Grades");
+        assert(student3.getFinalExamGrade() == finalExamGrade && "Move constructor Klaida s3: Final exam grade");
+        assert(student3.getMedian() == median && "Move constructor Klaida s3: Median");
+        assert(student3.getAverage() == average && "Move constructor Klaida s3: Average");
+
+
+        assert(student2.getFirstName().empty() && "Move constructor Klaida: First name");
+        assert(student2.getLastName().empty() && "Move constructor Klaida: Last name");
+        assert(student2.getGrades().empty() && "Move constructor Klaida: Grades");
+        assert(student2.getFinalExamGrade() == 0 && "Move constructor Klaida: Final exam grade");
+        assert(student2.getAverage() == 0 && "Move constructor Klaida: Average");
+        assert(student2.getMedian() == 0 && "Move constructor Klaida: Median");
+    }
+
+    cout << "Move constructor :)" << endl;
+
+// Copy assignment operator
+    {
+        Vector<int> grades = {10, 9, 8};
+        string firstName = "V";
+        string lastName = "P";
+        int finalExamGrade = 7;
+        double median = 9.5;
+        double average = 9.0;
+
+        Student student1(firstName, lastName, grades, finalExamGrade, median, average);
+        Student student2;
+        student2 = student1;
+
+        assert(student2.getGrades() == student1.getGrades() && "Copy assignment Klaida: Grades");
+        assert(student2.getFirstName() == student1.getFirstName() && "Copy assignment Klaida: First name");
+        assert(student2.getLastName() == student1.getLastName() && "Copy assignment Klaida: Last name");
+        assert(student2.getFinalExamGrade() == student1.getFinalExamGrade() && "Copy assignment Klaida: Final exam grade");
+        assert(student2.getAverage() == student1.getAverage() && "Copy assignment Klaida: Average");
+        assert(student2.getMedian() == student1.getMedian() && "Copy assignment Klaida: Median");
+    }
+    cout << "Copy assignment operator :)" << endl;
+
+    // Move assignment operator
+    {
+        Vector<int> grades = {10, 9, 8};
+        string firstName = "V";
+        string lastName = "P";
+        int finalExamGrade = 7;
+        double median = 9.5;
+        double average = 9.0;
+
+        Student student1(firstName, lastName, grades, finalExamGrade, median, average);
+        Student student2;
+        student2 = std::move(student1);
+
+        assert(student2.getFirstName() == firstName && "Move assignment Klaida s2: First name");
+        assert(student2.getLastName() == lastName && "Move assignment Klaida s2: Last name");
+        assert(student2.getGrades() == grades && "Move assignment Klaida s2: Grades");
+        assert(student2.getFinalExamGrade() == finalExamGrade && "Move assignment Klaida s2: Final exam grade");
+        assert(student2.getMedian() == median && "Move assignment Klaida s2: Median");
+        assert(student2.getAverage() == average && "Move assignment Klaida s2: Average");
+
+        assert(student1.getFirstName().empty() && "Move assignment Klaida: First name");
+        assert(student1.getLastName().empty() && "Move assignment Klaida: Last name");
+        assert(student1.getGrades().empty() && "Move assignment Klaida: Grades");
+        assert(student1.getFinalExamGrade() == 0 && "Move assignment Klaida: Final exam grade");
+        assert(student1.getAverage() == 0 && "Move assignment Klaida: Average");
+        assert(student1.getMedian() == 0 && "Move assignment Klaida: Median");
+    }
+    cout << "Move assignment operator :)" << endl;
+    
+    // Destructor test
+    {
+        Student student;
+        assert(student.getFirstName().empty() && "Destructor Klaida: firstName ");
+
+    }
+    
+    cout << "Destructor :)" << endl;
+
+    cout << "Visi testai sekmingi" << endl;
+}
+
+// checking 5 functions pop_back, push_back, shrink_to_fit, begin, resize
+void checkVector() {
+    cout << " Tikrinamas pop_back()" << endl;
+    {
+        Vector<int> myVector;
+        int sum = 0;
+        myVector.push_back(100);
+        myVector.push_back(200);
+        myVector.push_back(300);
+
+        while (!myVector.empty()) {
+            sum += myVector.back();
+            myVector.pop_back();
+        }
+
+        cout << "myVector elementai susideda į sumą: " << sum << '\n';
+    }
+
+    cout << " Tikrinamas shrink_to_fit()" << endl;
+    {
+        Vector<int> myVector{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        myVector.reserve(20);
+        cout << "Talpa prieš shrink_to_fit: " << myVector.capacity() << endl;
+        myVector.shrink_to_fit();
+        cout << "Talpa po shrink_to_fit: " << myVector.capacity() << endl;
+    
+    }
+
+    cout << " Tikrinamas begin()" << endl;
+    {
+        Vector<int> myVector;
+        for (int i = 1; i <= 5; i++) myVector.push_back(i);
+
+        cout << "myVector susideda iš:";
+        for (Vector<int>::iterator it = myVector.begin(); it != myVector.end(); ++it)
+        cout << ' ' << *it;
+        cout << '\n';
+    }
+
+    cout << " Tikrinamas resize()" << endl;
+    {
+        Vector<int> myVector;
+        // initial
+        for (int i = 1; i < 10; i++) myVector.push_back(i);
+
+        myVector.resize(5);
+        myVector.resize(8, 100);
+        myVector.resize(12);
+
+        cout << "myVector susideda iš:";
+        for (Vector<int>::size_type i = 0; i < myVector.size(); i++)
+            cout << ' ' << myVector[i];
+        cout << '\n';
+    }
+
+    cout << " Tikrinamas push_back()" << endl;
+    {
+        Vector<int> myVector;
+        myVector.push_back(1);
+        myVector.push_back(2);
+        myVector.push_back(3);
+
+        cout << "myVector susideda iš:";
+        for (Vector<int>::size_type i = 0; i < myVector.size(); i++)
+            cout << ' ' << myVector[i];
+        cout << '\n';
+    }
+}
+
+
+// std::vector vs Vector efficiency
+void vectorVsVector() { 
+                auto start = chrono::steady_clock::now();
+                unsigned int sz = 100000000;  // 10000, 100000, 1000000, 10000000, 100000000
+                vector<int> v1;
+                int stdVector = 0;
+                for (unsigned int i = 1; i <= sz; ++i) {
+                    v1.push_back(i);
+                    if (v1.capacity() == v1.size()) {
+                        ++stdVector;
+                    }
+                }
+                auto end = chrono::steady_clock::now();
+                auto skirtumas = chrono::duration<double> (end - start).count();   
+                cout << "Tusčių vektorių su std::vector užpildymas su " << sz << " užėme: " << setprecision(8) << skirtumas << " sekundes" << endl; 
+                cout << "Atmintis buvo perskirstyta " << stdVector << " kartų su std::vector" << endl;
+
+                auto start1 = chrono::steady_clock::now();
+                Vector<int> v2;
+                int vectorx = 0;
+               for (unsigned int i = 1; i <= sz; ++i) {
+                    v2.push_back(i);
+                    if (v2.capacity() == v2.size()) {
+                        ++vectorx;
+                    }
+                }
+                
+                auto end1 = chrono::steady_clock::now();
+                auto skirtumas1 = chrono::duration<double> (end1 - start1).count(); 
+                cout << "Tusčių vektorių su Vector užpildymas su " << sz << " užėme: " << setprecision(8) << skirtumas1 << " sekundes" << endl;   
+                cout << "Atmintis buvo perskirstyta " << vectorx << " kartų su Vector" << endl;
 }
