@@ -18,7 +18,7 @@ Pasirinkus 5: Atliekama efektyvumo/spartos analizę: originalusis std::vector vs
 
 
 ### Instaliavimo instrukcija
-- Parsiųskite setup.exe ir paleiskite failą.
+- Parsiųskite setup.exe (darytas su https://inno-setup-compiler.en.lo4d.com/windows) ir paleiskite failą.
 - Leiskite parsiųsti į C:/Program files/VU/Vardenis-Pavardenis.
 - Pažymėkite sukurti shortcut darbalaukyje.
 - Spauskite Finish.
@@ -119,8 +119,8 @@ Kodas yra [vectorVsVector().](https://github.com/zubarev4/Pazymio-skaiciuokle3/b
 Kiek vidutiniškai laiko užtrunka  std::vector tipo ir Jūsų Vector tipo tuščius vektorius užpildyti: 10000, 100000, 1000000, 10000000 ir 100000000 int elementų naudojant push_back() funkciją:
 |               |    10 000     |    100 000    |   1 000 000   |  10 000 000   |  100 000 000  |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
-|  std::vector  |   0.000559s   |   0.000984s   |   0.014556s   |   0.133064s   |   1.167885s   |
-|    Vector     |   0.000999s   |   0.001039s   |   0.015117s   |   0.165021s   |   1.522337s   |
+|  std::vector  |   0.0001098s   |   0.000984s   |   0.014556s   |   0.133064s   |   0.490705s   |
+|    Vector     |   0.0001343s   |   0.001039s   |   0.015117s   |   0.165021s   |   0.454563s   |
 
 Atminties perskirstymai užpildant 100 000 000 elementų: 
 ```cpp
@@ -131,17 +131,15 @@ Atmintis buvo perskirstyta 27 kartų su Vector
 Vector
 |               |    100 000     |    1 000 000    |   10 000 000   | 
 | ------------- | ------------- | ------------- | ------------- |
-|  Skaitymas iš failo =  |   0.000559s   |   0.000984s   |   0.014556s   |  
-|    Studentų rūšiavimas =    |   0.000999s   |   0.001039s   |   0.015117s   |   
-|    Studentų skirstymas =    |   0.000999s   |   0.001039s   |   0.015117s   |   
-|    Studentų išvedimas =    |   0.000999s   |   0.001039s   |   0.015117s   |   
-|    Visos programos veikimo laikas =    |   0.000999s   |   0.001039s   |   0.015117s   |   
+|  Skaitymas iš failo =  |   0.375038s   |   3.43819s   |   37.4151s   |  
+|    Studentų rūšiavimas =    |   0.117023s   |   1.33479s   |   19.2961s   |   
+|    Studentų skirstymas =    |   0.0349793s   |   0.311176s   |   3.07841s   |   
+|    Visos programos veikimo laikas =    |   0.529369s   |   5.08692s   |   59.792s   |   
 
 std::vector
 |               |    100 000     |    1 000 000    |   10 000 000   | 
 | ------------- | ------------- | ------------- | ------------- |
-|  Skaitymas iš failo =  |   0.000559s   |   0.000984s   |   0.014556s   |  
-|    Studentų rūšiavimas =    |   0.000999s   |   0.001039s   |   0.015117s   |   
-|    Studentų skirstymas =    |   0.000999s   |   0.001039s   |   0.015117s   |   
-|    Studentų išvedimas =    |   0.000999s   |   0.001039s   |   0.015117s   |   
-|    Visos programos veikimo laikas =    |   0.000999s   |   0.001039s   |   0.015117s   |   
+|  Skaitymas iš failo =  |   0.39289s   |   3.44133s   |   11.1227s   |  
+|    Studentų rūšiavimas =    |   0.118021s   |   1.37648s   |   5.02039s   |   
+|    Studentų skirstymas =    |   0.148348s   |   1.6264s   |   5.89159s   |   
+|    Visos programos veikimo laikas =    |   0.658959s   |   6.44241s   |   22.03459s   |   
